@@ -1,0 +1,29 @@
+{
+  "name": "dither-lab",
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "pnpm@11.0.7",
+  "description": "Conversor de imágenes con dithering para web y Android",
+  "scripts": {
+    "build:android-web": "node scripts/build-android.mjs",
+    "sync:android": "pnpm run build:android-web && cap sync android"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.4.0",
+    "@capacitor/core": "^8.4.0",
+    "@capacitor/filesystem": "^8.1.2",
+    "@capacitor/share": "^8.0.1"
+  },
+  "devDependencies": {
+    "@capacitor/assets": "^3.0.5",
+    "@capacitor/cli": "^8.4.0",
+    "esbuild": "^0.28.1",
+    "sharp": "^0.35.1"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp"
+    ]
+  }
+}

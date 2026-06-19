@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Dither Lab</string>
+    <string name="title_activity_main">Dither Lab</string>
+    <string name="package_name">com.blademasterlol.ditherlab</string>
+    <string name="custom_url_scheme">com.blademasterlol.ditherlab</string>
+</resources>

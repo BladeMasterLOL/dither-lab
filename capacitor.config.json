@@ -1,0 +1,8 @@
+{
+  "appId": "com.blademasterlol.ditherlab",
+  "appName": "Dither Lab",
+  "webDir": "dist-android",
+  "android": {
+    "backgroundColor": "#11110f"
+  }
+}

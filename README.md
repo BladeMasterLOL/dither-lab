@@ -11,3 +11,7 @@ https://blademasterlol.github.io/dither-lab/
 Abre `index.html` directamente en el navegador o sirve la carpeta con cualquier servidor estático.
 
 Todo el procesamiento ocurre en el navegador. Las imágenes no se suben a ningún servidor.
+
+## Android
+
+El proyecto Android está generado con Capacitor. Cada cambio en `main` ejecuta el workflow **Build Android APK** y deja una APK instalable como artefacto de GitHub Actions.

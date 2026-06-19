@@ -389,9 +389,22 @@ async function downloadResult() {
       showToast("No pude generar el PNG en este navegador.", "error");
       return;
     }
-    const link = document.createElement("a");
     const baseName = state.fileName.replace(/\.[^.]+$/, "") || "imagen";
-    link.download = `${baseName}-dither.png`;
+    const fileName = `${baseName}-dither.png`;
+
+    if (typeof window.saveNativePng === "function") {
+      window.saveNativePng(blob, fileName)
+        .then(() => showToast("PNG listo para guardar o compartir"))
+        .catch(() => showToast("No pude abrir el selector para guardar.", "error"))
+        .finally(() => {
+          elements.downloadButton.firstChild.textContent = "Descargar PNG ";
+          elements.downloadButton.disabled = false;
+        });
+      return;
+    }
+
+    const link = document.createElement("a");
+    link.download = fileName;
     link.href = URL.createObjectURL(blob);
     link.click();
     window.setTimeout(() => URL.revokeObjectURL(link.href), 1000);
