@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#11110f" />
+    <meta name="description" content="Convierte tus imágenes en arte con dithering directamente en tu navegador." />
+    <title>Dither Lab — Dithering instantáneo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Dither Lab, inicio">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>DITHER<span class="brand-light">LAB</span></span>
+      </a>
+      <div class="privacy-pill"><span class="status-dot"></span> PROCESADO LOCAL</div>
+      <button class="new-button" id="newImageButton" type="button" disabled>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+        Nueva imagen
+      </button>
+    </header>
+
+    <main class="app-shell">
+      <aside class="control-panel" aria-label="Controles de dithering">
+        <div class="panel-heading">
+          <span class="eyebrow">01 / ESTILO</span>
+          <h1>Hazla de puntos.</h1>
+          <p>Elige cómo quieres romper los píxeles.</p>
+        </div>
+
+        <fieldset class="control-section" id="algorithmControls" disabled>
+          <legend>Algoritmo</legend>
+          <div class="algorithm-grid">
+            <label class="algorithm-option">
+              <input type="radio" name="algorithm" value="floyd" checked />
+              <span class="algorithm-card"><span class="pattern pattern-floyd"></span><strong>Floyd–Steinberg</strong><small>Clásico y detallado</small></span>
+            </label>
+            <label class="algorithm-option">
+              <input type="radio" name="algorithm" value="atkinson" />
+              <span class="algorithm-card"><span class="pattern pattern-atkinson"></span><strong>Atkinson</strong><small>Limpio y contrastado</small></span>
+            </label>
+            <label class="algorithm-option">
+              <input type="radio" name="algorithm" value="bayer" />
+              <span class="algorithm-card"><span class="pattern pattern-bayer"></span><strong>Bayer 4×4</strong><small>Trama geométrica</small></span>
+            </label>
+            <label class="algorithm-option">
+              <input type="radio" name="algorithm" value="stucki" />
+              <span class="algorithm-card"><span class="pattern pattern-stucki"></span><strong>Stucki</strong><small>Suave y granular</small></span>
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="control-section" id="paletteControls" disabled>
+          <legend>Paleta</legend>
+          <div class="palette-row" role="radiogroup" aria-label="Paleta de color">
+            <label class="palette-option" title="Blanco y negro">
+              <input type="radio" name="palette" value="mono" checked />
+              <span class="palette-swatch swatch-mono"><span></span></span>
+              <small>Mono</small>
+            </label>
+            <label class="palette-option" title="Tinta">
+              <input type="radio" name="palette" value="ink" />
+              <span class="palette-swatch swatch-ink"><span></span></span>
+              <small>Tinta</small>
+            </label>
+            <label class="palette-option" title="Gameboy">
+              <input type="radio" name="palette" value="gameboy" />
+              <span class="palette-swatch swatch-gameboy"><span></span></span>
+              <small>Oliva</small>
+            </label>
+            <label class="palette-option" title="Cianotipo">
+              <input type="radio" name="palette" value="cyan" />
+              <span class="palette-swatch swatch-cyan"><span></span></span>
+              <small>Cian</small>
+            </label>
+            <label class="palette-option" title="Fuego">
+              <input type="radio" name="palette" value="fire" />
+              <span class="palette-swatch swatch-fire"><span></span></span>
+              <small>Fuego</small>
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="control-section sliders" id="imageControls" disabled>
+          <legend>Ajustes</legend>
+          <label class="range-control">
+            <span><strong>Tamaño de punto</strong><output id="pixelSizeValue">2 px</output></span>
+            <input id="pixelSize" type="range" min="1" max="10" value="2" />
+          </label>
+          <label class="range-control">
+            <span><strong>Contraste</strong><output id="contrastValue">110%</output></span>
+            <input id="contrast" type="range" min="50" max="200" value="110" />
+          </label>
+          <label class="range-control">
+            <span><strong>Brillo</strong><output id="brightnessValue">0</output></span>
+            <input id="brightness" type="range" min="-100" max="100" value="0" />
+          </label>
+          <label class="range-control">
+            <span><strong>Intensidad</strong><output id="strengthValue">100%</output></span>
+            <input id="strength" type="range" min="0" max="150" value="100" />
+          </label>
+          <div class="switch-row">
+            <span><strong>Invertir tonos</strong><small>Cambia luces por sombras</small></span>
+            <label class="switch"><input id="invert" type="checkbox" /><span></span></label>
+          </div>
+        </fieldset>
+      </aside>
+
+      <section class="workspace" aria-label="Vista previa">
+        <div class="workspace-toolbar">
+          <div>
+            <span class="eyebrow">02 / RESULTADO</span>
+            <div class="file-meta" id="fileMeta" hidden>
+              <strong id="fileName">imagen.jpg</strong>
+              <span id="fileDetails">1200 × 800 · 1.2 MB</span>
+            </div>
+          </div>
+          <div class="view-actions" id="viewActions" hidden>
+            <div class="segmented" aria-label="Modo de vista">
+              <button type="button" data-view="original">Original</button>
+              <button class="active" type="button" data-view="compare">Comparar</button>
+              <button type="button" data-view="result">Resultado</button>
+            </div>
+            <button class="icon-button" id="resetButton" type="button" title="Restablecer ajustes" aria-label="Restablecer ajustes">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4v6h6M20 20v-6h-6"/><path d="M20 9a8 8 0 0 0-14.9-3M4 15a8 8 0 0 0 14.9 3"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="canvas-stage" id="canvasStage">
+          <div class="drop-zone" id="dropZone">
+            <div class="drop-art" aria-hidden="true">
+              <div class="art-sheet art-back"></div>
+              <div class="art-sheet art-front"><span class="art-sun"></span><span class="art-mountain"></span></div>
+              <span class="art-plus">+</span>
+            </div>
+            <span class="drop-kicker">EMPIEZA AQUÍ</span>
+            <h2>Suelta una imagen<br />y observa la magia.</h2>
+            <p>Arrastra tu archivo aquí o selecciónalo desde tu equipo.</p>
+            <button class="upload-button" id="uploadButton" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 15v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4" /></svg>
+              Elegir imagen
+            </button>
+            <button class="demo-button" id="demoButton" type="button">o probar con una demo</button>
+            <small>JPG, PNG, WEBP · hasta 30 MB</small>
+          </div>
+
+          <div class="preview-wrap" id="previewWrap" hidden>
+            <div class="preview-frame" id="previewFrame">
+              <canvas id="originalCanvas"></canvas>
+              <div class="result-clip" id="resultClip"><canvas id="resultCanvas"></canvas></div>
+              <div class="compare-line" id="compareLine"><span><svg viewBox="0 0 24 24"><path d="m9 7-5 5 5 5M15 7l5 5-5 5" /></svg></span></div>
+              <input class="compare-range" id="compareRange" type="range" min="0" max="100" value="50" aria-label="Comparar original y resultado" />
+              <span class="canvas-label original-label">ORIGINAL</span>
+              <span class="canvas-label result-label">DITHER</span>
+              <div class="processing" id="processing" hidden><span></span>Procesando</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="workspace-footer" id="workspaceFooter" hidden>
+          <div class="output-info"><span class="status-dot"></span><span id="outputDetails">PNG · 1200 × 800 px</span></div>
+          <button class="download-button" id="downloadButton" type="button">
+            Descargar PNG
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v12M7 11l5 5 5-5M5 20h14" /></svg>
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <input id="fileInput" type="file" accept="image/jpeg,image/png,image/webp" hidden />
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
