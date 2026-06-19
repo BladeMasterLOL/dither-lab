@@ -20,17 +20,25 @@ const translations = {
     atkinsonDesc: "Limpio y contrastado",
     bayerDesc: "Trama geométrica",
     stuckiDesc: "Suave y granular",
+    sierraDesc: "Ligero y definido",
+    bayer8Desc: "Trama fina ordenada",
     palette: "Paleta",
     paletteAria: "Paleta de color",
     monoTitle: "Blanco y negro",
     inkTitle: "Tinta",
     cyanotypeTitle: "Cianotipo",
     fireTitle: "Fuego",
+    neonTitle: "Neón",
+    rubyTitle: "Rubí",
+    violetTitle: "Ultravioleta",
     monoLabel: "Mono",
     inkLabel: "Tinta",
     oliveLabel: "Oliva",
     cyanLabel: "Cian",
     fireLabel: "Fuego",
+    neonLabel: "Neón",
+    rubyLabel: "Rubí",
+    violetLabel: "Ultra",
     adjustments: "Ajustes",
     dotSize: "Tamaño de punto",
     contrast: "Contraste",
@@ -84,17 +92,25 @@ const translations = {
     atkinsonDesc: "Clean and punchy",
     bayerDesc: "Geometric pattern",
     stuckiDesc: "Smooth and granular",
+    sierraDesc: "Light and crisp",
+    bayer8Desc: "Fine ordered pattern",
     palette: "Palette",
     paletteAria: "Color palette",
     monoTitle: "Black and white",
     inkTitle: "Ink",
     cyanotypeTitle: "Cyanotype",
     fireTitle: "Fire",
+    neonTitle: "Neon",
+    rubyTitle: "Ruby",
+    violetTitle: "Ultraviolet",
     monoLabel: "Mono",
     inkLabel: "Ink",
     oliveLabel: "Olive",
     cyanLabel: "Cyan",
     fireLabel: "Fire",
+    neonLabel: "Neon",
+    rubyLabel: "Ruby",
+    violetLabel: "Ultra",
     adjustments: "Adjustments",
     dotSize: "Dot size",
     contrast: "Contrast",
@@ -155,11 +171,14 @@ const palettes = {
   ink: ["#242119", "#756f5e", "#c7bda5", "#f2ead9"],
   gameboy: ["#27351e", "#536b2e", "#91a84f", "#cadc9f"],
   cyan: ["#062f45", "#176585", "#70b7b5", "#d1f3e8"],
-  fire: ["#27111a", "#7d2636", "#e94f37", "#ffd166"]
+  fire: ["#27111a", "#7d2636", "#e94f37", "#ffd166"],
+  vapor: ["#241734", "#2e80a3", "#f26ac0", "#fdf0d5"],
+  ruby: ["#17090c", "#6f1825", "#e34b4b", "#ffe0d2"],
+  violet: ["#190d29", "#51277a", "#a36bd1", "#f0ddff"]
 };
 
 const defaults = {
-  algorithm: "floyd",
+  algorithm: "bayer",
   palette: "mono",
   pixelSize: 2,
   contrast: 110,
@@ -319,22 +338,37 @@ function applyDither(imageData, settings) {
   const kernels = {
     floyd: { divisor: 16, points: [[1, 0, 7], [-1, 1, 3], [0, 1, 5], [1, 1, 1]] },
     atkinson: { divisor: 8, points: [[1, 0, 1], [2, 0, 1], [-1, 1, 1], [0, 1, 1], [1, 1, 1], [0, 2, 1]] },
-    stucki: { divisor: 42, points: [[1, 0, 8], [2, 0, 4], [-2, 1, 2], [-1, 1, 4], [0, 1, 8], [1, 1, 4], [2, 1, 2], [-2, 2, 1], [-1, 2, 2], [0, 2, 4], [1, 2, 2], [2, 2, 1]] }
+    stucki: { divisor: 42, points: [[1, 0, 8], [2, 0, 4], [-2, 1, 2], [-1, 1, 4], [0, 1, 8], [1, 1, 4], [2, 1, 2], [-2, 2, 1], [-1, 2, 2], [0, 2, 4], [1, 2, 2], [2, 2, 1]] },
+    sierra: { divisor: 4, points: [[1, 0, 2], [-1, 1, 1], [0, 1, 1]] }
   };
-  const bayer = [
-    [0, 8, 2, 10],
-    [12, 4, 14, 6],
-    [3, 11, 1, 9],
-    [15, 7, 13, 5]
-  ];
+  const bayerMatrices = {
+    bayer: [
+      [0, 8, 2, 10],
+      [12, 4, 14, 6],
+      [3, 11, 1, 9],
+      [15, 7, 13, 5]
+    ],
+    bayer8: [
+      [0, 32, 8, 40, 2, 34, 10, 42],
+      [48, 16, 56, 24, 50, 18, 58, 26],
+      [12, 44, 4, 36, 14, 46, 6, 38],
+      [60, 28, 52, 20, 62, 30, 54, 22],
+      [3, 35, 11, 43, 1, 33, 9, 41],
+      [51, 19, 59, 27, 49, 17, 57, 25],
+      [15, 47, 7, 39, 13, 45, 5, 37],
+      [63, 31, 55, 23, 61, 29, 53, 21]
+    ]
+  };
+  const orderedMatrix = bayerMatrices[settings.algorithm];
 
   for (let y = 0; y < height; y += 1) {
     for (let x = 0; x < width; x += 1) {
       const index = y * width + x;
       let oldValue = values[index];
 
-      if (settings.algorithm === "bayer") {
-        const threshold = ((bayer[y % 4][x % 4] + 0.5) / 16 - 0.5) * 92 * settings.strength;
+      if (orderedMatrix) {
+        const size = orderedMatrix.length;
+        const threshold = ((orderedMatrix[y % size][x % size] + 0.5) / (size * size) - 0.5) * 92 * settings.strength;
         oldValue = Math.max(0, Math.min(255, oldValue + threshold));
       }
 
@@ -346,7 +380,7 @@ function applyDither(imageData, settings) {
       output[p + 2] = color[2];
       output[p + 3] = data[p + 3];
 
-      if (settings.algorithm !== "bayer") {
+      if (!orderedMatrix) {
         const kernel = kernels[settings.algorithm];
         diffuse(values, width, height, x, y, oldValue - levels[paletteIndex], kernel.points, kernel.divisor, settings.strength);
       }

@@ -40,7 +40,11 @@
           <legend data-i18n="algorithm">Algoritmo</legend>
           <div class="algorithm-grid">
             <label class="algorithm-option">
-              <input type="radio" name="algorithm" value="floyd" checked />
+              <input type="radio" name="algorithm" value="bayer" checked />
+              <span class="algorithm-card"><span class="pattern pattern-bayer"></span><strong>Bayer 4×4</strong><small data-i18n="bayerDesc">Trama geométrica</small></span>
+            </label>
+            <label class="algorithm-option">
+              <input type="radio" name="algorithm" value="floyd" />
               <span class="algorithm-card"><span class="pattern pattern-floyd"></span><strong>Floyd–Steinberg</strong><small data-i18n="floydDesc">Clásico y detallado</small></span>
             </label>
             <label class="algorithm-option">
@@ -48,12 +52,16 @@
               <span class="algorithm-card"><span class="pattern pattern-atkinson"></span><strong>Atkinson</strong><small data-i18n="atkinsonDesc">Limpio y contrastado</small></span>
             </label>
             <label class="algorithm-option">
-              <input type="radio" name="algorithm" value="bayer" />
-              <span class="algorithm-card"><span class="pattern pattern-bayer"></span><strong>Bayer 4×4</strong><small data-i18n="bayerDesc">Trama geométrica</small></span>
-            </label>
-            <label class="algorithm-option">
               <input type="radio" name="algorithm" value="stucki" />
               <span class="algorithm-card"><span class="pattern pattern-stucki"></span><strong>Stucki</strong><small data-i18n="stuckiDesc">Suave y granular</small></span>
+            </label>
+            <label class="algorithm-option">
+              <input type="radio" name="algorithm" value="sierra" />
+              <span class="algorithm-card"><span class="pattern pattern-sierra"></span><strong>Sierra Lite</strong><small data-i18n="sierraDesc">Ligero y definido</small></span>
+            </label>
+            <label class="algorithm-option">
+              <input type="radio" name="algorithm" value="bayer8" />
+              <span class="algorithm-card"><span class="pattern pattern-bayer8"></span><strong>Bayer 8×8</strong><small data-i18n="bayer8Desc">Trama fina ordenada</small></span>
             </label>
           </div>
         </fieldset>
@@ -85,6 +93,21 @@
               <input type="radio" name="palette" value="fire" />
               <span class="palette-swatch swatch-fire"><span></span></span>
               <small data-i18n="fireLabel">Fuego</small>
+            </label>
+            <label class="palette-option" title="Neón" data-i18n-title="neonTitle">
+              <input type="radio" name="palette" value="vapor" />
+              <span class="palette-swatch swatch-vapor"><span></span></span>
+              <small data-i18n="neonLabel">Neón</small>
+            </label>
+            <label class="palette-option" title="Rubí" data-i18n-title="rubyTitle">
+              <input type="radio" name="palette" value="ruby" />
+              <span class="palette-swatch swatch-ruby"><span></span></span>
+              <small data-i18n="rubyLabel">Rubí</small>
+            </label>
+            <label class="palette-option" title="Ultravioleta" data-i18n-title="violetTitle">
+              <input type="radio" name="palette" value="violet" />
+              <span class="palette-swatch swatch-violet"><span></span></span>
+              <small data-i18n="violetLabel">Ultra</small>
             </label>
           </div>
         </fieldset>

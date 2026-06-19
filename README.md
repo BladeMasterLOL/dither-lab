@@ -27,8 +27,8 @@ Dither Lab is a fast, privacy-friendly image dithering tool. Images never leave 
 
 ### Features
 
-- Floyd–Steinberg, Atkinson, Bayer 4×4, and Stucki algorithms
-- Five color palettes and live tone controls
+- Bayer 4×4 and 8×8, Floyd–Steinberg, Atkinson, Stucki, and Sierra Lite algorithms
+- Eight color palettes and live tone controls
 - Before/after comparison slider
 - Full-resolution PNG export
 - Native Android save and share support
@@ -63,8 +63,8 @@ Dither Lab es una herramienta rápida y privada para aplicar dithering a imágen
 
 ### Características
 
-- Algoritmos Floyd–Steinberg, Atkinson, Bayer 4×4 y Stucki
-- Cinco paletas de color y ajustes de tono en vivo
+- Algoritmos Bayer 4×4 y 8×8, Floyd–Steinberg, Atkinson, Stucki y Sierra Lite
+- Ocho paletas de color y ajustes de tono en vivo
 - Comparador interactivo antes/después
 - Exportación PNG en alta resolución
 - Guardado y compartir nativo en Android

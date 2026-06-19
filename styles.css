@@ -169,9 +169,11 @@ fieldset { min-inline-size: 0; }
 .pattern-atkinson { background: radial-gradient(circle, #d8d6cd 1px, transparent 1.3px); background-size: 7px 7px; }
 .pattern-bayer { background: conic-gradient(from 90deg at 1px 1px, transparent 25%, #d8d6cd 0 50%, transparent 0); background-size: 6px 6px; }
 .pattern-stucki { background: radial-gradient(circle at 30% 25%, #d8d6cd 1px, transparent 1.2px), radial-gradient(circle at 70% 75%, #d8d6cd 1px, transparent 1.2px); background-size: 8px 8px; }
+.pattern-sierra { background: radial-gradient(circle, #d8d6cd 1px, transparent 1.25px); background-size: 4px 7px; transform: skewX(-12deg); }
+.pattern-bayer8 { background: radial-gradient(circle, #d8d6cd .8px, transparent 1px); background-size: 3px 3px; }
 .algorithm-option input:checked + .algorithm-card .pattern { filter: sepia(1) saturate(7) hue-rotate(28deg); }
 
-.palette-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+.palette-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px 10px; }
 .palette-option { display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; }
 .palette-option small { color: var(--dim); font-size: 8px; }
 .palette-swatch { width: 38px; height: 38px; padding: 3px; border: 1px solid var(--line); border-radius: 50%; transition: .18s ease; }
@@ -181,6 +183,9 @@ fieldset { min-inline-size: 0; }
 .swatch-gameboy span { background: linear-gradient(135deg, #cadc9f 0 50%, #27351e 50%); }
 .swatch-cyan span { background: linear-gradient(135deg, #d1f3e8 0 50%, #062f45 50%); }
 .swatch-fire span { background: linear-gradient(135deg, #ffd166 0 45%, #e94f37 45% 70%, #27111a 70%); }
+.swatch-vapor span { background: linear-gradient(135deg, #fdf0d5 0 35%, #f26ac0 35% 62%, #2e80a3 62% 80%, #241734 80%); }
+.swatch-ruby span { background: linear-gradient(135deg, #ffe0d2 0 42%, #e34b4b 42% 68%, #6f1825 68% 84%, #17090c 84%); }
+.swatch-violet span { background: linear-gradient(135deg, #f0ddff 0 38%, #a36bd1 38% 63%, #51277a 63% 82%, #190d29 82%); }
 .palette-option:hover .palette-swatch { border-color: #77756d; }
 .palette-option input:checked + .palette-swatch { border-color: var(--accent); box-shadow: 0 0 0 2px var(--panel), 0 0 0 3px var(--accent); }
 .palette-option input:checked ~ small { color: var(--text); }
