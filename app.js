@@ -4,6 +4,152 @@ const $$ = (selector) => [...document.querySelectorAll(selector)];
 if ("scrollRestoration" in history) history.scrollRestoration = "manual";
 window.scrollTo(0, 0);
 
+const translations = {
+  es: {
+    pageTitle: "Dither Lab — Dithering instantáneo",
+    pageDescription: "Convierte tus imágenes en arte con dithering directamente en tu navegador.",
+    brandHome: "Dither Lab, inicio",
+    localProcessing: "PROCESADO LOCAL",
+    newImage: "Nueva imagen",
+    controlsLabel: "Controles de dithering",
+    styleEyebrow: "01 / ESTILO",
+    headline: "Hazla de puntos.",
+    subheadline: "Elige cómo quieres romper los píxeles.",
+    algorithm: "Algoritmo",
+    floydDesc: "Clásico y detallado",
+    atkinsonDesc: "Limpio y contrastado",
+    bayerDesc: "Trama geométrica",
+    stuckiDesc: "Suave y granular",
+    palette: "Paleta",
+    paletteAria: "Paleta de color",
+    monoTitle: "Blanco y negro",
+    inkTitle: "Tinta",
+    cyanotypeTitle: "Cianotipo",
+    fireTitle: "Fuego",
+    monoLabel: "Mono",
+    inkLabel: "Tinta",
+    oliveLabel: "Oliva",
+    cyanLabel: "Cian",
+    fireLabel: "Fuego",
+    adjustments: "Ajustes",
+    dotSize: "Tamaño de punto",
+    contrast: "Contraste",
+    brightness: "Brillo",
+    strength: "Intensidad",
+    invertTones: "Invertir tonos",
+    invertHelp: "Cambia luces por sombras",
+    previewLabel: "Vista previa",
+    resultEyebrow: "02 / RESULTADO",
+    viewMode: "Modo de vista",
+    original: "Original",
+    compare: "Comparar",
+    result: "Resultado",
+    resetSettings: "Restablecer ajustes",
+    startHere: "EMPIEZA AQUÍ",
+    dropTitle1: "Suelta una imagen",
+    dropTitle2: "y observa la magia.",
+    dropDescription: "Arrastra tu archivo aquí o selecciónalo desde tu equipo.",
+    chooseImage: "Elegir imagen",
+    tryDemo: "o probar con una demo",
+    fileHint: "JPG, PNG, WEBP · hasta 30 MB",
+    compareAria: "Comparar original y resultado",
+    originalUpper: "ORIGINAL",
+    processing: "Procesando",
+    download: "Descargar PNG",
+    preparing: "Preparando...",
+    invalidFile: "Ese archivo no parece una imagen compatible.",
+    tooLarge: "La imagen supera el límite de 30 MB.",
+    readError: "No pude leer esa imagen. Prueba con otro archivo.",
+    settingsReset: "Ajustes restablecidos",
+    pngError: "No pude generar el PNG en este navegador.",
+    nativeReady: "PNG listo para guardar o compartir",
+    nativeError: "No pude abrir el selector para guardar.",
+    pngReady: "PNG listo · {width} × {height} px",
+    demoFileName: "paisaje-demo.png",
+    nativeShareTitle: "Imagen creada con Dither Lab",
+    nativeShareDialog: "Guardar o compartir PNG"
+  },
+  en: {
+    pageTitle: "Dither Lab — Instant image dithering",
+    pageDescription: "Turn images into dithered artwork directly in your browser.",
+    brandHome: "Dither Lab, home",
+    localProcessing: "LOCAL PROCESSING",
+    newImage: "New image",
+    controlsLabel: "Dithering controls",
+    styleEyebrow: "01 / STYLE",
+    headline: "Make it dots.",
+    subheadline: "Choose how you want to break the pixels.",
+    algorithm: "Algorithm",
+    floydDesc: "Classic and detailed",
+    atkinsonDesc: "Clean and punchy",
+    bayerDesc: "Geometric pattern",
+    stuckiDesc: "Smooth and granular",
+    palette: "Palette",
+    paletteAria: "Color palette",
+    monoTitle: "Black and white",
+    inkTitle: "Ink",
+    cyanotypeTitle: "Cyanotype",
+    fireTitle: "Fire",
+    monoLabel: "Mono",
+    inkLabel: "Ink",
+    oliveLabel: "Olive",
+    cyanLabel: "Cyan",
+    fireLabel: "Fire",
+    adjustments: "Adjustments",
+    dotSize: "Dot size",
+    contrast: "Contrast",
+    brightness: "Brightness",
+    strength: "Strength",
+    invertTones: "Invert tones",
+    invertHelp: "Swap highlights and shadows",
+    previewLabel: "Preview",
+    resultEyebrow: "02 / RESULT",
+    viewMode: "View mode",
+    original: "Original",
+    compare: "Compare",
+    result: "Result",
+    resetSettings: "Reset settings",
+    startHere: "START HERE",
+    dropTitle1: "Drop an image",
+    dropTitle2: "and watch it transform.",
+    dropDescription: "Drag your file here or choose it from your device.",
+    chooseImage: "Choose image",
+    tryDemo: "or try the demo",
+    fileHint: "JPG, PNG, WEBP · up to 30 MB",
+    compareAria: "Compare original and result",
+    originalUpper: "ORIGINAL",
+    processing: "Processing",
+    download: "Download PNG",
+    preparing: "Preparing...",
+    invalidFile: "That file does not look like a supported image.",
+    tooLarge: "The image exceeds the 30 MB limit.",
+    readError: "I could not read that image. Try another file.",
+    settingsReset: "Settings reset",
+    pngError: "I could not generate the PNG in this browser.",
+    nativeReady: "PNG ready to save or share",
+    nativeError: "I could not open the save dialog.",
+    pngReady: "PNG ready · {width} × {height} px",
+    demoFileName: "landscape-demo.png",
+    nativeShareTitle: "Image created with Dither Lab",
+    nativeShareDialog: "Save or share PNG"
+  }
+};
+
+function getInitialLanguage() {
+  try {
+    const saved = localStorage.getItem("ditherLabLanguage");
+    if (saved === "es" || saved === "en") return saved;
+  } catch {
+    // Local storage can be unavailable in private browser contexts.
+  }
+  return "es";
+}
+
+function t(key, values = {}) {
+  const template = translations[state.language]?.[key] ?? translations.es[key] ?? key;
+  return template.replace(/\{(\w+)\}/g, (_, name) => values[name] ?? `{${name}}`);
+}
+
 const palettes = {
   mono: ["#11110f", "#f1efe7"],
   ink: ["#242119", "#756f5e", "#c7bda5", "#f2ead9"],
@@ -23,7 +169,9 @@ const defaults = {
 };
 
 const state = {
+  language: getInitialLanguage(),
   source: null,
+  isDemo: false,
   fileName: "",
   fileSize: 0,
   width: 0,
@@ -53,9 +201,47 @@ const elements = {
   viewActions: $("#viewActions"),
   workspaceFooter: $("#workspaceFooter"),
   downloadButton: $("#downloadButton"),
+  downloadLabel: $("#downloadLabel"),
   resetButton: $("#resetButton"),
   toast: $("#toast")
 };
+
+function applyLanguage() {
+  document.documentElement.lang = state.language;
+  document.title = t("pageTitle");
+  $("meta[name='description']").content = t("pageDescription");
+
+  $$('[data-i18n]').forEach((element) => {
+    element.textContent = t(element.dataset.i18n);
+  });
+  $$('[data-i18n-title]').forEach((element) => {
+    element.title = t(element.dataset.i18nTitle);
+  });
+  $$('[data-i18n-aria-label]').forEach((element) => {
+    element.setAttribute("aria-label", t(element.dataset.i18nAriaLabel));
+  });
+  $$('[data-language]').forEach((button) => {
+    const active = button.dataset.language === state.language;
+    button.classList.toggle("active", active);
+    button.setAttribute("aria-pressed", String(active));
+  });
+
+  if (state.source) {
+    if (state.isDemo) state.fileName = t("demoFileName");
+    updateLoadedMetadata();
+  }
+}
+
+function setLanguage(language) {
+  if (language !== "es" && language !== "en") return;
+  state.language = language;
+  try {
+    localStorage.setItem("ditherLabLanguage", language);
+  } catch {
+    // The selection still applies for the current session.
+  }
+  applyLanguage();
+}
 
 const controlIds = ["algorithmControls", "paletteControls", "imageControls"];
 const rangeConfig = {
@@ -250,6 +436,10 @@ function setLoadedUI() {
   elements.workspaceFooter.hidden = false;
   elements.newImageButton.disabled = false;
   controlIds.forEach((id) => { $(`#${id}`).disabled = false; });
+  updateLoadedMetadata();
+}
+
+function updateLoadedMetadata() {
   elements.fileName.textContent = state.fileName;
   elements.fileDetails.textContent = `${state.width} × ${state.height} · ${formatBytes(state.fileSize)}`;
   const exportSize = fitDimensions(state.width, state.height, 4200);
@@ -265,11 +455,11 @@ function showToast(message, type = "") {
 
 async function loadFile(file) {
   if (!file || !file.type.startsWith("image/")) {
-    showToast("Ese archivo no parece una imagen compatible.", "error");
+    showToast(t("invalidFile"), "error");
     return;
   }
   if (file.size > 30 * 1024 * 1024) {
-    showToast("La imagen supera el límite de 30 MB.", "error");
+    showToast(t("tooLarge"), "error");
     return;
   }
 
@@ -281,6 +471,7 @@ async function loadFile(file) {
     image.src = state.objectUrl;
     await image.decode();
     state.source = image;
+    state.isDemo = false;
     state.fileName = file.name;
     state.fileSize = file.size;
     state.width = image.naturalWidth;
@@ -289,7 +480,7 @@ async function loadFile(file) {
     drawOriginal();
     scheduleRender();
   } catch {
-    showToast("No pude leer esa imagen. Prueba con otro archivo.", "error");
+    showToast(t("readError"), "error");
   }
 }
 
@@ -341,7 +532,8 @@ function createDemo() {
   }
 
   state.source = canvas;
-  state.fileName = "paisaje-demo.png";
+  state.isDemo = true;
+  state.fileName = t("demoFileName");
   state.fileSize = 0;
   state.width = canvas.width;
   state.height = canvas.height;
@@ -361,7 +553,7 @@ function resetSettings() {
   });
   $("#invert").checked = defaults.invert;
   scheduleRender();
-  showToast("Ajustes restablecidos");
+  showToast(t("settingsReset"));
 }
 
 function updateRangeFill(input) {
@@ -377,27 +569,30 @@ function updateCompare(value) {
 async function downloadResult() {
   if (!state.source) return;
   elements.downloadButton.disabled = true;
-  elements.downloadButton.firstChild.textContent = "Preparando... ";
+  elements.downloadLabel.textContent = t("preparing");
   await new Promise((resolve) => window.setTimeout(resolve, 20));
   const exportCanvas = document.createElement("canvas");
   const maxDimension = Math.min(4200, Math.max(state.width, state.height));
   const output = renderToCanvas(exportCanvas, maxDimension);
   exportCanvas.toBlob((blob) => {
     if (!blob) {
-      elements.downloadButton.firstChild.textContent = "Descargar PNG ";
+      elements.downloadLabel.textContent = t("download");
       elements.downloadButton.disabled = false;
-      showToast("No pude generar el PNG en este navegador.", "error");
+      showToast(t("pngError"), "error");
       return;
     }
     const baseName = state.fileName.replace(/\.[^.]+$/, "") || "imagen";
     const fileName = `${baseName}-dither.png`;
 
     if (typeof window.saveNativePng === "function") {
-      window.saveNativePng(blob, fileName)
-        .then(() => showToast("PNG listo para guardar o compartir"))
-        .catch(() => showToast("No pude abrir el selector para guardar.", "error"))
+      window.saveNativePng(blob, fileName, {
+        title: t("nativeShareTitle"),
+        dialogTitle: t("nativeShareDialog")
+      })
+        .then(() => showToast(t("nativeReady")))
+        .catch(() => showToast(t("nativeError"), "error"))
         .finally(() => {
-          elements.downloadButton.firstChild.textContent = "Descargar PNG ";
+          elements.downloadLabel.textContent = t("download");
           elements.downloadButton.disabled = false;
         });
       return;
@@ -408,9 +603,9 @@ async function downloadResult() {
     link.href = URL.createObjectURL(blob);
     link.click();
     window.setTimeout(() => URL.revokeObjectURL(link.href), 1000);
-    elements.downloadButton.firstChild.textContent = "Descargar PNG ";
+    elements.downloadLabel.textContent = t("download");
     elements.downloadButton.disabled = false;
-    showToast(`PNG listo · ${output.width} × ${output.height} px`);
+    showToast(t("pngReady", { width: output.width, height: output.height }));
   }, "image/png");
 }
 
@@ -420,6 +615,10 @@ elements.fileInput.addEventListener("change", (event) => loadFile(event.target.f
 elements.demoButton.addEventListener("click", createDemo);
 elements.resetButton.addEventListener("click", resetSettings);
 elements.downloadButton.addEventListener("click", downloadResult);
+
+$$('[data-language]').forEach((button) => {
+  button.addEventListener("click", () => setLanguage(button.dataset.language));
+});
 
 elements.compareRange.addEventListener("input", (event) => updateCompare(event.target.value));
 
@@ -472,3 +671,4 @@ window.addEventListener("keydown", (event) => {
 
 new ResizeObserver(sizePreviewFrame).observe(elements.previewWrap);
 updateCompare(50);
+applyLanguage();

@@ -11,7 +11,7 @@ function blobToBase64(blob) {
   });
 }
 
-window.saveNativePng = async (blob, fileName) => {
+window.saveNativePng = async (blob, fileName, labels = {}) => {
   const data = await blobToBase64(blob);
   const saved = await Filesystem.writeFile({
     path: fileName,
@@ -20,9 +20,9 @@ window.saveNativePng = async (blob, fileName) => {
   });
 
   await Share.share({
-    title: "Imagen creada con Dither Lab",
+    title: labels.title || "Dither Lab",
     text: fileName,
     url: saved.uri,
-    dialogTitle: "Guardar o compartir PNG"
+    dialogTitle: labels.dialogTitle || "Save or share PNG"
   });
 };

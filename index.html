@@ -13,119 +13,123 @@
   </head>
   <body>
     <header class="topbar">
-      <a class="brand" href="#" aria-label="Dither Lab, inicio">
+      <a class="brand" href="#" aria-label="Dither Lab, inicio" data-i18n-aria-label="brandHome">
         <span class="brand-mark" aria-hidden="true"></span>
         <span>DITHER<span class="brand-light">LAB</span></span>
       </a>
-      <div class="privacy-pill"><span class="status-dot"></span> PROCESADO LOCAL</div>
+      <div class="privacy-pill"><span class="status-dot"></span><span data-i18n="localProcessing">PROCESADO LOCAL</span></div>
+      <div class="language-switch" role="group" aria-label="Idioma / Language">
+        <button class="active" type="button" data-language="es" aria-pressed="true" title="Español">ES</button>
+        <button type="button" data-language="en" aria-pressed="false" title="English">EN</button>
+      </div>
       <button class="new-button" id="newImageButton" type="button" disabled>
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
-        Nueva imagen
+        <span data-i18n="newImage">Nueva imagen</span>
       </button>
     </header>
 
     <main class="app-shell">
-      <aside class="control-panel" aria-label="Controles de dithering">
+      <aside class="control-panel" aria-label="Controles de dithering" data-i18n-aria-label="controlsLabel">
         <div class="panel-heading">
-          <span class="eyebrow">01 / ESTILO</span>
-          <h1>Hazla de puntos.</h1>
-          <p>Elige cómo quieres romper los píxeles.</p>
+          <span class="eyebrow" data-i18n="styleEyebrow">01 / ESTILO</span>
+          <h1 data-i18n="headline">Hazla de puntos.</h1>
+          <p data-i18n="subheadline">Elige cómo quieres romper los píxeles.</p>
         </div>
 
         <fieldset class="control-section" id="algorithmControls" disabled>
-          <legend>Algoritmo</legend>
+          <legend data-i18n="algorithm">Algoritmo</legend>
           <div class="algorithm-grid">
             <label class="algorithm-option">
               <input type="radio" name="algorithm" value="floyd" checked />
-              <span class="algorithm-card"><span class="pattern pattern-floyd"></span><strong>Floyd–Steinberg</strong><small>Clásico y detallado</small></span>
+              <span class="algorithm-card"><span class="pattern pattern-floyd"></span><strong>Floyd–Steinberg</strong><small data-i18n="floydDesc">Clásico y detallado</small></span>
             </label>
             <label class="algorithm-option">
               <input type="radio" name="algorithm" value="atkinson" />
-              <span class="algorithm-card"><span class="pattern pattern-atkinson"></span><strong>Atkinson</strong><small>Limpio y contrastado</small></span>
+              <span class="algorithm-card"><span class="pattern pattern-atkinson"></span><strong>Atkinson</strong><small data-i18n="atkinsonDesc">Limpio y contrastado</small></span>
             </label>
             <label class="algorithm-option">
               <input type="radio" name="algorithm" value="bayer" />
-              <span class="algorithm-card"><span class="pattern pattern-bayer"></span><strong>Bayer 4×4</strong><small>Trama geométrica</small></span>
+              <span class="algorithm-card"><span class="pattern pattern-bayer"></span><strong>Bayer 4×4</strong><small data-i18n="bayerDesc">Trama geométrica</small></span>
             </label>
             <label class="algorithm-option">
               <input type="radio" name="algorithm" value="stucki" />
-              <span class="algorithm-card"><span class="pattern pattern-stucki"></span><strong>Stucki</strong><small>Suave y granular</small></span>
+              <span class="algorithm-card"><span class="pattern pattern-stucki"></span><strong>Stucki</strong><small data-i18n="stuckiDesc">Suave y granular</small></span>
             </label>
           </div>
         </fieldset>
 
         <fieldset class="control-section" id="paletteControls" disabled>
-          <legend>Paleta</legend>
-          <div class="palette-row" role="radiogroup" aria-label="Paleta de color">
-            <label class="palette-option" title="Blanco y negro">
+          <legend data-i18n="palette">Paleta</legend>
+          <div class="palette-row" role="radiogroup" aria-label="Paleta de color" data-i18n-aria-label="paletteAria">
+            <label class="palette-option" title="Blanco y negro" data-i18n-title="monoTitle">
               <input type="radio" name="palette" value="mono" checked />
               <span class="palette-swatch swatch-mono"><span></span></span>
-              <small>Mono</small>
+              <small data-i18n="monoLabel">Mono</small>
             </label>
-            <label class="palette-option" title="Tinta">
+            <label class="palette-option" title="Tinta" data-i18n-title="inkTitle">
               <input type="radio" name="palette" value="ink" />
               <span class="palette-swatch swatch-ink"><span></span></span>
-              <small>Tinta</small>
+              <small data-i18n="inkLabel">Tinta</small>
             </label>
             <label class="palette-option" title="Gameboy">
               <input type="radio" name="palette" value="gameboy" />
               <span class="palette-swatch swatch-gameboy"><span></span></span>
-              <small>Oliva</small>
+              <small data-i18n="oliveLabel">Oliva</small>
             </label>
-            <label class="palette-option" title="Cianotipo">
+            <label class="palette-option" title="Cianotipo" data-i18n-title="cyanotypeTitle">
               <input type="radio" name="palette" value="cyan" />
               <span class="palette-swatch swatch-cyan"><span></span></span>
-              <small>Cian</small>
+              <small data-i18n="cyanLabel">Cian</small>
             </label>
-            <label class="palette-option" title="Fuego">
+            <label class="palette-option" title="Fuego" data-i18n-title="fireTitle">
               <input type="radio" name="palette" value="fire" />
               <span class="palette-swatch swatch-fire"><span></span></span>
-              <small>Fuego</small>
+              <small data-i18n="fireLabel">Fuego</small>
             </label>
           </div>
         </fieldset>
 
         <fieldset class="control-section sliders" id="imageControls" disabled>
-          <legend>Ajustes</legend>
+          <legend data-i18n="adjustments">Ajustes</legend>
           <label class="range-control">
-            <span><strong>Tamaño de punto</strong><output id="pixelSizeValue">2 px</output></span>
+            <span><strong data-i18n="dotSize">Tamaño de punto</strong><output id="pixelSizeValue">2 px</output></span>
             <input id="pixelSize" type="range" min="1" max="10" value="2" />
           </label>
           <label class="range-control">
-            <span><strong>Contraste</strong><output id="contrastValue">110%</output></span>
+            <span><strong data-i18n="contrast">Contraste</strong><output id="contrastValue">110%</output></span>
             <input id="contrast" type="range" min="50" max="200" value="110" />
           </label>
           <label class="range-control">
-            <span><strong>Brillo</strong><output id="brightnessValue">0</output></span>
+            <span><strong data-i18n="brightness">Brillo</strong><output id="brightnessValue">0</output></span>
             <input id="brightness" type="range" min="-100" max="100" value="0" />
           </label>
           <label class="range-control">
-            <span><strong>Intensidad</strong><output id="strengthValue">100%</output></span>
+            <span><strong data-i18n="strength">Intensidad</strong><output id="strengthValue">100%</output></span>
             <input id="strength" type="range" min="0" max="150" value="100" />
           </label>
           <div class="switch-row">
-            <span><strong>Invertir tonos</strong><small>Cambia luces por sombras</small></span>
+            <span><strong data-i18n="invertTones">Invertir tonos</strong><small data-i18n="invertHelp">Cambia luces por sombras</small></span>
             <label class="switch"><input id="invert" type="checkbox" /><span></span></label>
           </div>
         </fieldset>
       </aside>
 
-      <section class="workspace" aria-label="Vista previa">
+      <section class="workspace" aria-label="Vista previa" data-i18n-aria-label="previewLabel">
         <div class="workspace-toolbar">
           <div>
-            <span class="eyebrow">02 / RESULTADO</span>
+            <span class="eyebrow" data-i18n="resultEyebrow">02 / RESULTADO</span>
             <div class="file-meta" id="fileMeta" hidden>
               <strong id="fileName">imagen.jpg</strong>
               <span id="fileDetails">1200 × 800 · 1.2 MB</span>
             </div>
           </div>
           <div class="view-actions" id="viewActions" hidden>
-            <div class="segmented" aria-label="Modo de vista">
-              <button type="button" data-view="original">Original</button>
-              <button class="active" type="button" data-view="compare">Comparar</button>
-              <button type="button" data-view="result">Resultado</button>
+            <div class="segmented" aria-label="Modo de vista" data-i18n-aria-label="viewMode">
+              <button type="button" data-view="original" data-i18n="original">Original</button>
+              <button class="active" type="button" data-view="compare" data-i18n="compare">Comparar</button>
+              <button type="button" data-view="result" data-i18n="result">Resultado</button>
             </div>
-            <button class="icon-button" id="resetButton" type="button" title="Restablecer ajustes" aria-label="Restablecer ajustes">
+            <button class="icon-button" id="resetButton" type="button" title="Restablecer ajustes" aria-label="Restablecer ajustes" data-i18n-title="resetSettings" data-i18n-aria-label="resetSettings">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4v6h6M20 20v-6h-6"/><path d="M20 9a8 8 0 0 0-14.9-3M4 15a8 8 0 0 0 14.9 3"/></svg>
             </button>
           </div>
@@ -138,15 +142,15 @@
               <div class="art-sheet art-front"><span class="art-sun"></span><span class="art-mountain"></span></div>
               <span class="art-plus">+</span>
             </div>
-            <span class="drop-kicker">EMPIEZA AQUÍ</span>
-            <h2>Suelta una imagen<br />y observa la magia.</h2>
-            <p>Arrastra tu archivo aquí o selecciónalo desde tu equipo.</p>
+            <span class="drop-kicker" data-i18n="startHere">EMPIEZA AQUÍ</span>
+            <h2><span data-i18n="dropTitle1">Suelta una imagen</span><br /><span data-i18n="dropTitle2">y observa la magia.</span></h2>
+            <p data-i18n="dropDescription">Arrastra tu archivo aquí o selecciónalo desde tu equipo.</p>
             <button class="upload-button" id="uploadButton" type="button">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 15v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4" /></svg>
-              Elegir imagen
+              <span data-i18n="chooseImage">Elegir imagen</span>
             </button>
-            <button class="demo-button" id="demoButton" type="button">o probar con una demo</button>
-            <small>JPG, PNG, WEBP · hasta 30 MB</small>
+            <button class="demo-button" id="demoButton" type="button" data-i18n="tryDemo">o probar con una demo</button>
+            <small data-i18n="fileHint">JPG, PNG, WEBP · hasta 30 MB</small>
           </div>
 
           <div class="preview-wrap" id="previewWrap" hidden>
@@ -154,10 +158,10 @@
               <canvas id="originalCanvas"></canvas>
               <div class="result-clip" id="resultClip"><canvas id="resultCanvas"></canvas></div>
               <div class="compare-line" id="compareLine"><span><svg viewBox="0 0 24 24"><path d="m9 7-5 5 5 5M15 7l5 5-5 5" /></svg></span></div>
-              <input class="compare-range" id="compareRange" type="range" min="0" max="100" value="50" aria-label="Comparar original y resultado" />
-              <span class="canvas-label original-label">ORIGINAL</span>
+              <input class="compare-range" id="compareRange" type="range" min="0" max="100" value="50" aria-label="Comparar original y resultado" data-i18n-aria-label="compareAria" />
+              <span class="canvas-label original-label" data-i18n="originalUpper">ORIGINAL</span>
               <span class="canvas-label result-label">DITHER</span>
-              <div class="processing" id="processing" hidden><span></span>Procesando</div>
+              <div class="processing" id="processing" hidden><span class="processing-spinner"></span><span data-i18n="processing">Procesando</span></div>
             </div>
           </div>
         </div>
@@ -165,7 +169,7 @@
         <div class="workspace-footer" id="workspaceFooter" hidden>
           <div class="output-info"><span class="status-dot"></span><span id="outputDetails">PNG · 1200 × 800 px</span></div>
           <button class="download-button" id="downloadButton" type="button">
-            Descargar PNG
+            <span id="downloadLabel" data-i18n="download">Descargar PNG</span>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v12M7 11l5 5 5-5M5 20h14" /></svg>
           </button>
         </div>

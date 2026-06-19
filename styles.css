@@ -79,8 +79,33 @@ button { color: inherit; }
 
 .status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 8px rgba(223, 255, 69, .35); }
 
-.new-button {
+.language-switch {
   margin-left: auto;
+  display: flex;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #0e0e0d;
+}
+
+.language-switch button {
+  min-width: 30px;
+  height: 27px;
+  padding: 0 7px;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--dim);
+  font: 500 9px "DM Mono", monospace;
+  cursor: pointer;
+  transition: .18s ease;
+}
+
+.language-switch button:hover { color: var(--text); }
+.language-switch button.active { background: var(--accent); color: #17180c; }
+
+.new-button {
+  margin-left: 10px;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -239,7 +264,7 @@ input[type="range"]::-moz-range-thumb { width: 9px; height: 9px; border-radius: 
 .preview-frame.view-result .original-label, .preview-frame.view-result .compare-line { display: none; }
 .preview-frame.view-result .compare-range { pointer-events: none; }
 .processing { position: absolute; z-index: 10; inset: 0; display: flex; align-items: center; justify-content: center; gap: 9px; background: rgba(10,10,9,.64); color: white; font: 500 9px "DM Mono", monospace; line-height: 1; backdrop-filter: blur(2px); }
-.processing span { width: 12px; height: 12px; border: 2px solid #777; border-top-color: var(--accent); border-radius: 50%; animation: spin .7s linear infinite; }
+.processing .processing-spinner { width: 12px; height: 12px; border: 2px solid #777; border-top-color: var(--accent); border-radius: 50%; animation: spin .7s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
 .workspace-footer { display: flex; align-items: center; justify-content: space-between; padding: 0 28px; border-top: 1px solid var(--line-soft); background: rgba(20,20,18,.92); }
@@ -268,6 +293,7 @@ input[type="range"]::-moz-range-thumb { width: 9px; height: 9px; border-radius: 
   .new-button { width: 36px; padding: 0; justify-content: center; }
   .new-button span, .new-button:not(:has(span)) { font-size: 0; }
   .new-button { font-size: 0; }
+  .language-switch button { min-width: 28px; padding-inline: 5px; }
   .app-shell { min-height: calc(100vh - 60px); }
   .workspace { min-height: 610px; grid-template-rows: 72px minmax(420px, 1fr) 68px; }
   .workspace-toolbar { padding: 0 15px; }
