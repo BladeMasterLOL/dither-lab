@@ -179,6 +179,8 @@ fieldset { min-inline-size: 0; }
 .palette-swatch { width: 38px; height: 38px; padding: 3px; border: 1px solid var(--line); border-radius: 50%; transition: .18s ease; }
 .palette-swatch span { display: block; width: 100%; height: 100%; border-radius: 50%; }
 .swatch-mono span { background: linear-gradient(135deg, #f1efe7 0 50%, #11110f 50%); }
+.swatch-original span { background: conic-gradient(#ef4444, #facc15, #22c55e, #06b6d4, #3b82f6, #a855f7, #ef4444); }
+.swatch-adaptive span { background: conic-gradient(from 30deg, #ef8354 0 12.5%, #f6d365 0 25%, #7bc8a4 0 37.5%, #4f86c6 0 50%, #8e6bbf 0 62.5%, #d35d9e 0 75%, #3e4651 0 87.5%, #f2eee8 0); }
 .swatch-ink span { background: linear-gradient(135deg, #efe7d3 0 50%, #242119 50%); }
 .swatch-gameboy span { background: linear-gradient(135deg, #cadc9f 0 50%, #27351e 50%); }
 .swatch-cyan span { background: linear-gradient(135deg, #d1f3e8 0 50%, #062f45 50%); }

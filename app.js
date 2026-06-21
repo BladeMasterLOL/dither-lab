@@ -25,6 +25,8 @@ const translations = {
     palette: "Paleta",
     paletteAria: "Paleta de color",
     monoTitle: "Blanco y negro",
+    originalColorTitle: "Color original",
+    adaptiveTitle: "Paleta automática de 8 colores",
     inkTitle: "Tinta",
     cyanotypeTitle: "Cianotipo",
     fireTitle: "Fuego",
@@ -32,6 +34,8 @@ const translations = {
     rubyTitle: "Rubí",
     violetTitle: "Ultravioleta",
     monoLabel: "Mono",
+    originalColorLabel: "Original",
+    adaptiveLabel: "Auto 8",
     inkLabel: "Tinta",
     oliveLabel: "Oliva",
     cyanLabel: "Cian",
@@ -97,6 +101,8 @@ const translations = {
     palette: "Palette",
     paletteAria: "Color palette",
     monoTitle: "Black and white",
+    originalColorTitle: "Original image colors",
+    adaptiveTitle: "Automatic 8-color palette",
     inkTitle: "Ink",
     cyanotypeTitle: "Cyanotype",
     fireTitle: "Fire",
@@ -104,6 +110,8 @@ const translations = {
     rubyTitle: "Ruby",
     violetTitle: "Ultraviolet",
     monoLabel: "Mono",
+    originalColorLabel: "Original",
+    adaptiveLabel: "Auto 8",
     inkLabel: "Ink",
     oliveLabel: "Olive",
     cyanLabel: "Cyan",
@@ -322,7 +330,169 @@ function diffuse(buffer, width, height, x, y, error, kernel, divisor, strength) 
   }
 }
 
+const diffusionKernels = {
+  floyd: { divisor: 16, points: [[1, 0, 7], [-1, 1, 3], [0, 1, 5], [1, 1, 1]] },
+  atkinson: { divisor: 8, points: [[1, 0, 1], [2, 0, 1], [-1, 1, 1], [0, 1, 1], [1, 1, 1], [0, 2, 1]] },
+  stucki: { divisor: 42, points: [[1, 0, 8], [2, 0, 4], [-2, 1, 2], [-1, 1, 4], [0, 1, 8], [1, 1, 4], [2, 1, 2], [-2, 2, 1], [-1, 2, 2], [0, 2, 4], [1, 2, 2], [2, 2, 1]] },
+  sierra: { divisor: 4, points: [[1, 0, 2], [-1, 1, 1], [0, 1, 1]] }
+};
+
+const orderedMatrices = {
+  bayer: [
+    [0, 8, 2, 10],
+    [12, 4, 14, 6],
+    [3, 11, 1, 9],
+    [15, 7, 13, 5]
+  ],
+  bayer8: [
+    [0, 32, 8, 40, 2, 34, 10, 42],
+    [48, 16, 56, 24, 50, 18, 58, 26],
+    [12, 44, 4, 36, 14, 46, 6, 38],
+    [60, 28, 52, 20, 62, 30, 54, 22],
+    [3, 35, 11, 43, 1, 33, 9, 41],
+    [51, 19, 59, 27, 49, 17, 57, 25],
+    [15, 47, 7, 39, 13, 45, 5, 37],
+    [63, 31, 55, 23, 61, 29, 53, 21]
+  ]
+};
+
+function colorDistanceSquared(r, g, b, color) {
+  return (r - color[0]) ** 2 + (g - color[1]) ** 2 + (b - color[2]) ** 2;
+}
+
+function closestRgbIndex(r, g, b, colors) {
+  let nearest = 0;
+  let distance = Infinity;
+  for (let i = 0; i < colors.length; i += 1) {
+    const current = colorDistanceSquared(r, g, b, colors[i]);
+    if (current < distance) {
+      nearest = i;
+      distance = current;
+    }
+  }
+  return nearest;
+}
+
+function extractAdaptivePalette(data, settings, colorCount = 8) {
+  const pixelCount = data.length / 4;
+  const stride = Math.max(1, Math.floor(pixelCount / 2048));
+  const samples = [];
+
+  for (let i = 0; i < pixelCount; i += stride) {
+    const p = i * 4;
+    if (data[p + 3] < 16) continue;
+    samples.push([
+      adjustTone(data[p], settings.contrast, settings.brightness, settings.invert),
+      adjustTone(data[p + 1], settings.contrast, settings.brightness, settings.invert),
+      adjustTone(data[p + 2], settings.contrast, settings.brightness, settings.invert)
+    ]);
+  }
+
+  if (!samples.length) return [[0, 0, 0], [255, 255, 255]];
+
+  const mean = samples.reduce((total, color) => {
+    total[0] += color[0];
+    total[1] += color[1];
+    total[2] += color[2];
+    return total;
+  }, [0, 0, 0]).map((value) => value / samples.length);
+  const centers = [mean];
+
+  while (centers.length < colorCount) {
+    let candidate = null;
+    let candidateDistance = -1;
+    for (const sample of samples) {
+      const distance = Math.min(...centers.map((center) => colorDistanceSquared(sample[0], sample[1], sample[2], center)));
+      if (distance > candidateDistance) {
+        candidate = sample;
+        candidateDistance = distance;
+      }
+    }
+    if (!candidate || candidateDistance < 16) break;
+    centers.push([...candidate]);
+  }
+
+  for (let iteration = 0; iteration < 5; iteration += 1) {
+    const totals = centers.map(() => [0, 0, 0, 0]);
+    for (const sample of samples) {
+      const index = closestRgbIndex(sample[0], sample[1], sample[2], centers);
+      totals[index][0] += sample[0];
+      totals[index][1] += sample[1];
+      totals[index][2] += sample[2];
+      totals[index][3] += 1;
+    }
+    totals.forEach((total, index) => {
+      if (!total[3]) return;
+      centers[index] = [total[0] / total[3], total[1] / total[3], total[2] / total[3]];
+    });
+  }
+
+  return centers.map((color) => color.map((value) => Math.round(value)));
+}
+
+function quantizeChannel(value, levels = 4) {
+  const step = 255 / (levels - 1);
+  return Math.round(Math.max(0, Math.min(255, value)) / step) * step;
+}
+
+function applyColorDither(imageData, settings) {
+  const { width, height, data } = imageData;
+  const channelSize = width * height;
+  const red = new Float32Array(channelSize);
+  const green = new Float32Array(channelSize);
+  const blue = new Float32Array(channelSize);
+  const output = new Uint8ClampedArray(data.length);
+  const adaptiveColors = settings.palette === "adaptive" ? extractAdaptivePalette(data, settings) : null;
+  const orderedMatrix = orderedMatrices[settings.algorithm];
+  const kernel = diffusionKernels[settings.algorithm];
+
+  for (let i = 0; i < channelSize; i += 1) {
+    const p = i * 4;
+    red[i] = adjustTone(data[p], settings.contrast, settings.brightness, settings.invert);
+    green[i] = adjustTone(data[p + 1], settings.contrast, settings.brightness, settings.invert);
+    blue[i] = adjustTone(data[p + 2], settings.contrast, settings.brightness, settings.invert);
+  }
+
+  for (let y = 0; y < height; y += 1) {
+    for (let x = 0; x < width; x += 1) {
+      const index = y * width + x;
+      let oldRed = red[index];
+      let oldGreen = green[index];
+      let oldBlue = blue[index];
+
+      if (orderedMatrix) {
+        const size = orderedMatrix.length;
+        const threshold = ((orderedMatrix[y % size][x % size] + 0.5) / (size * size) - 0.5) * 72 * settings.strength;
+        oldRed = Math.max(0, Math.min(255, oldRed + threshold));
+        oldGreen = Math.max(0, Math.min(255, oldGreen + threshold));
+        oldBlue = Math.max(0, Math.min(255, oldBlue + threshold));
+      }
+
+      const color = adaptiveColors
+        ? adaptiveColors[closestRgbIndex(oldRed, oldGreen, oldBlue, adaptiveColors)]
+        : [quantizeChannel(oldRed), quantizeChannel(oldGreen), quantizeChannel(oldBlue)];
+      const p = index * 4;
+      output[p] = color[0];
+      output[p + 1] = color[1];
+      output[p + 2] = color[2];
+      output[p + 3] = data[p + 3];
+
+      if (!orderedMatrix) {
+        diffuse(red, width, height, x, y, oldRed - color[0], kernel.points, kernel.divisor, settings.strength);
+        diffuse(green, width, height, x, y, oldGreen - color[1], kernel.points, kernel.divisor, settings.strength);
+        diffuse(blue, width, height, x, y, oldBlue - color[2], kernel.points, kernel.divisor, settings.strength);
+      }
+    }
+  }
+
+  return new ImageData(output, width, height);
+}
+
 function applyDither(imageData, settings) {
+  if (settings.palette === "original" || settings.palette === "adaptive") {
+    return applyColorDither(imageData, settings);
+  }
+
   const { width, height, data } = imageData;
   const colors = palettes[settings.palette].map(hexToRgb);
   const levels = colors.map(luminance);
@@ -335,31 +505,7 @@ function applyDither(imageData, settings) {
     values[i] = adjustTone(gray, settings.contrast, settings.brightness, settings.invert);
   }
 
-  const kernels = {
-    floyd: { divisor: 16, points: [[1, 0, 7], [-1, 1, 3], [0, 1, 5], [1, 1, 1]] },
-    atkinson: { divisor: 8, points: [[1, 0, 1], [2, 0, 1], [-1, 1, 1], [0, 1, 1], [1, 1, 1], [0, 2, 1]] },
-    stucki: { divisor: 42, points: [[1, 0, 8], [2, 0, 4], [-2, 1, 2], [-1, 1, 4], [0, 1, 8], [1, 1, 4], [2, 1, 2], [-2, 2, 1], [-1, 2, 2], [0, 2, 4], [1, 2, 2], [2, 2, 1]] },
-    sierra: { divisor: 4, points: [[1, 0, 2], [-1, 1, 1], [0, 1, 1]] }
-  };
-  const bayerMatrices = {
-    bayer: [
-      [0, 8, 2, 10],
-      [12, 4, 14, 6],
-      [3, 11, 1, 9],
-      [15, 7, 13, 5]
-    ],
-    bayer8: [
-      [0, 32, 8, 40, 2, 34, 10, 42],
-      [48, 16, 56, 24, 50, 18, 58, 26],
-      [12, 44, 4, 36, 14, 46, 6, 38],
-      [60, 28, 52, 20, 62, 30, 54, 22],
-      [3, 35, 11, 43, 1, 33, 9, 41],
-      [51, 19, 59, 27, 49, 17, 57, 25],
-      [15, 47, 7, 39, 13, 45, 5, 37],
-      [63, 31, 55, 23, 61, 29, 53, 21]
-    ]
-  };
-  const orderedMatrix = bayerMatrices[settings.algorithm];
+  const orderedMatrix = orderedMatrices[settings.algorithm];
 
   for (let y = 0; y < height; y += 1) {
     for (let x = 0; x < width; x += 1) {
@@ -381,7 +527,7 @@ function applyDither(imageData, settings) {
       output[p + 3] = data[p + 3];
 
       if (!orderedMatrix) {
-        const kernel = kernels[settings.algorithm];
+        const kernel = diffusionKernels[settings.algorithm];
         diffuse(values, width, height, x, y, oldValue - levels[paletteIndex], kernel.points, kernel.divisor, settings.strength);
       }
     }
