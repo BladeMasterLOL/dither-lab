@@ -6,11 +6,11 @@
     <meta name="theme-color" content="#11110f" />
     <meta name="description" content="Convierte tus imágenes en arte con dithering directamente en tu navegador." />
     <title>Dither Lab — Dithering instantáneo</title>
-    <link rel="icon" href="assets/icon.svg?v=1.4.1" type="image/svg+xml" />
+    <link rel="icon" href="assets/icon.svg?v=1.5.0" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=1.4.1" />
+    <link rel="stylesheet" href="styles.css?v=1.5.0" />
   </head>
   <body>
     <header class="topbar">
@@ -280,11 +280,6 @@
                 <span class="canvas-label result-label">DITHER</span>
                 <div class="processing" id="processing" hidden><span class="processing-spinner"></span><span data-i18n="processing">Procesando</span></div>
               </div>
-              <label class="compare-control" id="compareControl">
-                <span data-i18n="before">Antes</span>
-                <input id="compareSlider" type="range" min="0" max="100" value="50" aria-label="Comparar antes y después" data-i18n-aria-label="compareAria" />
-                <span data-i18n="after">Después</span>
-              </label>
             </div>
           </div>
         </div>
@@ -318,6 +313,6 @@
     <input id="fileInput" type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" multiple hidden />
     <input id="cameraInput" type="file" accept="image/*" capture="environment" hidden />
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    <script src="app.js?v=1.4.1"></script>
+    <script src="app.js?v=1.5.0"></script>
   </body>
 </html>

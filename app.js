@@ -340,8 +340,6 @@ const elements = {
   resultClip: $("#resultClip"),
   compareLine: $("#compareLine"),
   compareRange: $("#compareRange"),
-  compareSlider: $("#compareSlider"),
-  compareControl: $("#compareControl"),
   processing: $("#processing"),
   fileMeta: $("#fileMeta"),
   fileName: $("#fileName"),
@@ -896,7 +894,7 @@ function drawOriginal() {
 function sizePreviewFrame() {
   if (!state.source || elements.previewWrap.hidden) return;
   const availableWidth = elements.previewWrap.clientWidth;
-  const availableHeight = Math.max(1, elements.previewWrap.clientHeight - 44);
+  const availableHeight = elements.previewWrap.clientHeight;
   if (!availableWidth || !availableHeight) return;
 
   const ratio = state.width / state.height;
@@ -1135,7 +1133,6 @@ function updateCompare(value) {
   elements.resultClip.style.clipPath = `inset(0 0 0 ${value}%)`;
   elements.compareLine.style.left = `${value}%`;
   elements.compareRange.value = value;
-  elements.compareSlider.value = value;
 }
 
 function setMobileControlTab(group, { scroll = false } = {}) {
@@ -1306,7 +1303,7 @@ $$('[data-language]').forEach((button) => {
   button.addEventListener("click", () => setLanguage(button.dataset.language));
 });
 
-[elements.compareRange, elements.compareSlider].forEach((input) => input.addEventListener("input", (event) => updateCompare(event.target.value)));
+elements.compareRange.addEventListener("input", (event) => updateCompare(event.target.value));
 
 $$('[data-view]').forEach((button) => {
   button.addEventListener("click", () => {
@@ -1314,7 +1311,6 @@ $$('[data-view]').forEach((button) => {
     button.classList.add("active");
     elements.previewFrame.classList.remove("view-original", "view-result");
     if (button.dataset.view !== "compare") elements.previewFrame.classList.add(`view-${button.dataset.view}`);
-    elements.compareControl.hidden = button.dataset.view !== "compare";
   });
 });
 
