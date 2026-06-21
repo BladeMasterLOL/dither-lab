@@ -2,19 +2,6 @@ name: Build Android APK
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - "android/**"
-      - "scripts/**"
-      - "app.js"
-      - "index.html"
-      - "styles.css"
-      - "package.json"
-      - "pnpm-lock.yaml"
-      - "pnpm-workspace.yaml"
-      - "capacitor.config.json"
-      - ".github/workflows/android-apk.yml"
 
 jobs:
   build-apk:

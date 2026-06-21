@@ -3,7 +3,7 @@
   "version": "1.3.0",
   "private": true,
   "packageManager": "pnpm@11.0.7",
-  "description": "Conversor de imágenes con dithering para web y Android",
+  "description": "Editor web libre para convertir imágenes con dithering",
   "scripts": {
     "build:android-web": "node scripts/build-android.mjs",
     "sync:android": "pnpm run build:android-web && cap sync android"

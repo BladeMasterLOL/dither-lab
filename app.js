@@ -33,6 +33,7 @@ const translations = {
     neonTitle: "Neón",
     rubyTitle: "Rubí",
     violetTitle: "Ultravioleta",
+    customPaletteTitle: "Paleta personalizada",
     monoLabel: "Mono",
     originalColorLabel: "Original",
     adaptiveLabel: "Auto 8",
@@ -43,6 +44,14 @@ const translations = {
     neonLabel: "Neón",
     rubyLabel: "Rubí",
     violetLabel: "Ultra",
+    customPaletteLabel: "Personal",
+    paletteNamePlaceholder: "Nombre de paleta",
+    savedPalettesLabel: "Paletas guardadas",
+    savedPalettes: "Guardadas",
+    removeColor: "− Color",
+    addColor: "+ Color",
+    savePalette: "Guardar",
+    deletePalette: "Borrar",
     adjustments: "Ajustes",
     dotSize: "Tamaño de punto",
     contrast: "Contraste",
@@ -50,6 +59,28 @@ const translations = {
     strength: "Intensidad",
     invertTones: "Invertir tonos",
     invertHelp: "Cambia luces por sombras",
+    tools: "Herramientas",
+    stylePreset: "Preset de estilo",
+    presetCustom: "Manual",
+    presetNewspaper: "Periódico",
+    presetGameboy: "Game Boy",
+    presetCyberpunk: "Cyberpunk",
+    presetRetro: "Retro PC",
+    cropFormat: "Formato de recorte",
+    cropOriginal: "Original",
+    rotation: "Rotación",
+    rotateLeft: "Girar a la izquierda",
+    rotateRight: "Girar a la derecha",
+    preserveTransparency: "Conservar transparencia",
+    transparencyHelp: "O usa un fondo sólido",
+    backgroundColor: "Color de fondo",
+    zoom: "Zoom",
+    mobileEditorNav: "Navegación del editor",
+    mobilePreview: "Vista",
+    mobileStyle: "Estilo",
+    mobileAdjust: "Ajustes",
+    mobileTools: "Herramientas",
+    openControls: "Abrir controles",
     previewLabel: "Vista previa",
     resultEyebrow: "02 / RESULTADO",
     viewMode: "Modo de vista",
@@ -65,9 +96,12 @@ const translations = {
     tryDemo: "o probar con una demo",
     fileHint: "JPG, PNG, WEBP · hasta 30 MB",
     compareAria: "Comparar original y resultado",
+    before: "Antes",
+    after: "Después",
     originalUpper: "ORIGINAL",
     processing: "Procesando",
     download: "Descargar PNG",
+    downloadFile: "Descargar {format}",
     preparing: "Preparando...",
     invalidFile: "Ese archivo no parece una imagen compatible.",
     tooLarge: "La imagen supera el límite de 30 MB.",
@@ -77,9 +111,23 @@ const translations = {
     nativeReady: "PNG listo para guardar o compartir",
     nativeError: "No pude abrir el selector para guardar.",
     pngReady: "PNG listo · {width} × {height} px",
+    exportError: "No pude generar el archivo en este navegador.",
+    exportReady: "{format} listo · {width} × {height} px",
     demoFileName: "paisaje-demo.png",
     nativeShareTitle: "Imagen creada con Dither Lab",
-    nativeShareDialog: "Guardar o compartir PNG"
+    nativeShareDialog: "Guardar o compartir PNG",
+    useCamera: "Usar cámara",
+    previousImage: "Imagen anterior",
+    nextImage: "Imagen siguiente",
+    outputSizeLabel: "Tamaño de salida",
+    exportFormatLabel: "Formato de exportación",
+    sizeOriginal: "Tamaño original",
+    downloadBatch: "Descargar lote",
+    paletteSaved: "Paleta guardada",
+    paletteDeleted: "Paleta eliminada",
+    paletteNameRequired: "Escribe un nombre para la paleta.",
+    batchReady: "{count} imágenes listas",
+    batchDownloadStarted: "Descargando {count} imágenes"
   },
   en: {
     pageTitle: "Dither Lab — Instant image dithering",
@@ -109,6 +157,7 @@ const translations = {
     neonTitle: "Neon",
     rubyTitle: "Ruby",
     violetTitle: "Ultraviolet",
+    customPaletteTitle: "Custom palette",
     monoLabel: "Mono",
     originalColorLabel: "Original",
     adaptiveLabel: "Auto 8",
@@ -119,6 +168,14 @@ const translations = {
     neonLabel: "Neon",
     rubyLabel: "Ruby",
     violetLabel: "Ultra",
+    customPaletteLabel: "Custom",
+    paletteNamePlaceholder: "Palette name",
+    savedPalettesLabel: "Saved palettes",
+    savedPalettes: "Saved",
+    removeColor: "− Color",
+    addColor: "+ Color",
+    savePalette: "Save",
+    deletePalette: "Delete",
     adjustments: "Adjustments",
     dotSize: "Dot size",
     contrast: "Contrast",
@@ -126,6 +183,28 @@ const translations = {
     strength: "Strength",
     invertTones: "Invert tones",
     invertHelp: "Swap highlights and shadows",
+    tools: "Tools",
+    stylePreset: "Style preset",
+    presetCustom: "Manual",
+    presetNewspaper: "Newspaper",
+    presetGameboy: "Game Boy",
+    presetCyberpunk: "Cyberpunk",
+    presetRetro: "Retro PC",
+    cropFormat: "Crop format",
+    cropOriginal: "Original",
+    rotation: "Rotation",
+    rotateLeft: "Rotate left",
+    rotateRight: "Rotate right",
+    preserveTransparency: "Preserve transparency",
+    transparencyHelp: "Or use a solid background",
+    backgroundColor: "Background color",
+    zoom: "Zoom",
+    mobileEditorNav: "Editor navigation",
+    mobilePreview: "Preview",
+    mobileStyle: "Style",
+    mobileAdjust: "Adjust",
+    mobileTools: "Tools",
+    openControls: "Open controls",
     previewLabel: "Preview",
     resultEyebrow: "02 / RESULT",
     viewMode: "View mode",
@@ -141,9 +220,12 @@ const translations = {
     tryDemo: "or try the demo",
     fileHint: "JPG, PNG, WEBP · up to 30 MB",
     compareAria: "Compare original and result",
+    before: "Before",
+    after: "After",
     originalUpper: "ORIGINAL",
     processing: "Processing",
     download: "Download PNG",
+    downloadFile: "Download {format}",
     preparing: "Preparing...",
     invalidFile: "That file does not look like a supported image.",
     tooLarge: "The image exceeds the 30 MB limit.",
@@ -153,9 +235,23 @@ const translations = {
     nativeReady: "PNG ready to save or share",
     nativeError: "I could not open the save dialog.",
     pngReady: "PNG ready · {width} × {height} px",
+    exportError: "I could not generate the file in this browser.",
+    exportReady: "{format} ready · {width} × {height} px",
     demoFileName: "landscape-demo.png",
     nativeShareTitle: "Image created with Dither Lab",
-    nativeShareDialog: "Save or share PNG"
+    nativeShareDialog: "Save or share PNG",
+    useCamera: "Use camera",
+    previousImage: "Previous image",
+    nextImage: "Next image",
+    outputSizeLabel: "Output size",
+    exportFormatLabel: "Export format",
+    sizeOriginal: "Original size",
+    downloadBatch: "Download batch",
+    paletteSaved: "Palette saved",
+    paletteDeleted: "Palette deleted",
+    paletteNameRequired: "Enter a name for the palette.",
+    batchReady: "{count} images ready",
+    batchDownloadStarted: "Downloading {count} images"
   }
 };
 
@@ -167,6 +263,15 @@ function getInitialLanguage() {
     // Local storage can be unavailable in private browser contexts.
   }
   return "es";
+}
+
+function readStoredJson(key, fallback) {
+  try {
+    const stored = JSON.parse(localStorage.getItem(key));
+    return stored ?? fallback;
+  } catch {
+    return fallback;
+  }
 }
 
 function t(key, values = {}) {
@@ -198,38 +303,80 @@ const defaults = {
 const state = {
   language: getInitialLanguage(),
   source: null,
+  baseSource: null,
   isDemo: false,
   fileName: "",
   fileSize: 0,
   width: 0,
   height: 0,
+  originalWidth: 0,
+  originalHeight: 0,
+  rotation: 0,
+  cropAspect: "original",
+  zoom: 1,
+  customColors: readStoredJson("ditherLabCustomColors", ["#11110f", "#dfff45", "#ef8354", "#f1efe7"]),
+  savedPalettes: readStoredJson("ditherLabSavedPalettes", []),
+  batchFiles: [],
+  batchIndex: 0,
   renderTimer: null,
   objectUrl: null
 };
 
 const elements = {
+  controlPanel: $(".control-panel"),
+  workspace: $(".workspace"),
   fileInput: $("#fileInput"),
+  cameraInput: $("#cameraInput"),
   uploadButton: $("#uploadButton"),
+  cameraButton: $("#cameraButton"),
   newImageButton: $("#newImageButton"),
   demoButton: $("#demoButton"),
   dropZone: $("#dropZone"),
   previewWrap: $("#previewWrap"),
+  previewStack: $("#previewStack"),
   previewFrame: $("#previewFrame"),
   originalCanvas: $("#originalCanvas"),
   resultCanvas: $("#resultCanvas"),
   resultClip: $("#resultClip"),
   compareLine: $("#compareLine"),
   compareRange: $("#compareRange"),
+  compareSlider: $("#compareSlider"),
+  compareControl: $("#compareControl"),
   processing: $("#processing"),
   fileMeta: $("#fileMeta"),
   fileName: $("#fileName"),
   fileDetails: $("#fileDetails"),
+  batchControls: $("#batchControls"),
+  batchPosition: $("#batchPosition"),
+  previousImageButton: $("#previousImageButton"),
+  nextImageButton: $("#nextImageButton"),
   outputDetails: $("#outputDetails"),
   viewActions: $("#viewActions"),
   workspaceFooter: $("#workspaceFooter"),
   downloadButton: $("#downloadButton"),
+  downloadBatchButton: $("#downloadBatchButton"),
   downloadLabel: $("#downloadLabel"),
+  outputSize: $("#outputSize"),
+  exportFormat: $("#exportFormat"),
+  stylePreset: $("#stylePreset"),
+  cropAspect: $("#cropAspect"),
+  rotateLeftButton: $("#rotateLeftButton"),
+  rotateRightButton: $("#rotateRightButton"),
+  preserveTransparency: $("#preserveTransparency"),
+  backgroundColor: $("#backgroundColor"),
+  zoom: $("#zoom"),
+  zoomValue: $("#zoomValue"),
+  customPaletteEditor: $("#customPaletteEditor"),
+  customPaletteSwatch: $("#customPaletteSwatch"),
+  customColors: $("#customColors"),
+  paletteName: $("#paletteName"),
+  savedPaletteSelect: $("#savedPaletteSelect"),
+  addColorButton: $("#addColorButton"),
+  removeColorButton: $("#removeColorButton"),
+  savePaletteButton: $("#savePaletteButton"),
+  deletePaletteButton: $("#deletePaletteButton"),
   resetButton: $("#resetButton"),
+  mobileControlsButton: $("#mobileControlsButton"),
   toast: $("#toast")
 };
 
@@ -257,6 +404,8 @@ function applyLanguage() {
     if (state.isDemo) state.fileName = t("demoFileName");
     updateLoadedMetadata();
   }
+  renderSavedPalettes();
+  updateDownloadLabel();
 }
 
 function setLanguage(language) {
@@ -270,7 +419,98 @@ function setLanguage(language) {
   applyLanguage();
 }
 
-const controlIds = ["algorithmControls", "paletteControls", "imageControls"];
+function persistCustomPalettes() {
+  try {
+    localStorage.setItem("ditherLabCustomColors", JSON.stringify(state.customColors));
+    localStorage.setItem("ditherLabSavedPalettes", JSON.stringify(state.savedPalettes));
+  } catch {
+    // Palettes remain available for the current session.
+  }
+}
+
+function updateCustomPaletteSwatch() {
+  const stops = state.customColors.map((color, index) => `${color} ${(index / state.customColors.length) * 100}% ${((index + 1) / state.customColors.length) * 100}%`);
+  elements.customPaletteSwatch.querySelector("span").style.background = `linear-gradient(135deg, ${stops.join(", ")})`;
+}
+
+function renderCustomColors() {
+  elements.customColors.replaceChildren();
+  state.customColors.forEach((color, index) => {
+    const input = document.createElement("input");
+    input.type = "color";
+    input.value = color;
+    input.setAttribute("aria-label", `${t("customPaletteLabel")} ${index + 1}`);
+    input.addEventListener("input", () => {
+      state.customColors[index] = input.value;
+      persistCustomPalettes();
+      updateCustomPaletteSwatch();
+      scheduleRender();
+    });
+    elements.customColors.append(input);
+  });
+  elements.addColorButton.disabled = state.customColors.length >= 8;
+  elements.removeColorButton.disabled = state.customColors.length <= 2;
+  updateCustomPaletteSwatch();
+}
+
+function renderSavedPalettes() {
+  const selected = elements.savedPaletteSelect.value;
+  elements.savedPaletteSelect.replaceChildren();
+  const placeholder = document.createElement("option");
+  placeholder.value = "";
+  placeholder.textContent = t("savedPalettes");
+  elements.savedPaletteSelect.append(placeholder);
+  state.savedPalettes.forEach((palette) => {
+    const option = document.createElement("option");
+    option.value = palette.id;
+    option.textContent = palette.name;
+    elements.savedPaletteSelect.append(option);
+  });
+  if (state.savedPalettes.some((palette) => palette.id === selected)) elements.savedPaletteSelect.value = selected;
+}
+
+function updateCustomPaletteVisibility() {
+  const isCustom = $("input[name='palette']:checked").value === "custom";
+  elements.customPaletteEditor.hidden = !isCustom;
+}
+
+function selectCustomPalette(colors) {
+  state.customColors = colors.slice(0, 8);
+  $(`input[name='palette'][value='custom']`).checked = true;
+  persistCustomPalettes();
+  renderCustomColors();
+  updateCustomPaletteVisibility();
+  scheduleRender();
+}
+
+function saveCustomPalette() {
+  const name = elements.paletteName.value.trim();
+  if (!name) {
+    showToast(t("paletteNameRequired"), "error");
+    return;
+  }
+  const existing = state.savedPalettes.find((palette) => palette.name.toLowerCase() === name.toLowerCase());
+  if (existing) {
+    existing.colors = [...state.customColors];
+  } else {
+    state.savedPalettes.push({ id: `${Date.now()}`, name, colors: [...state.customColors] });
+  }
+  persistCustomPalettes();
+  renderSavedPalettes();
+  elements.paletteName.value = "";
+  showToast(t("paletteSaved"));
+}
+
+function deleteSavedPalette() {
+  const id = elements.savedPaletteSelect.value;
+  if (!id) return;
+  state.savedPalettes = state.savedPalettes.filter((palette) => palette.id !== id);
+  persistCustomPalettes();
+  renderSavedPalettes();
+  showToast(t("paletteDeleted"));
+}
+
+const controlIds = ["algorithmControls", "paletteControls", "imageControls", "toolControls"];
 const rangeConfig = {
   pixelSize: { suffix: " px" },
   contrast: { suffix: "%" },
@@ -295,7 +535,10 @@ function getSettings() {
     contrast: Number($("#contrast").value),
     brightness: Number($("#brightness").value),
     strength: Number($("#strength").value) / 100,
-    invert: $("#invert").checked
+    invert: $("#invert").checked,
+    customColors: state.customColors.map(hexToRgb),
+    preserveTransparency: elements.preserveTransparency.checked,
+    backgroundColor: elements.backgroundColor.value
   };
 }
 
@@ -475,7 +718,7 @@ function applyColorDither(imageData, settings) {
       output[p] = color[0];
       output[p + 1] = color[1];
       output[p + 2] = color[2];
-      output[p + 3] = data[p + 3];
+      output[p + 3] = settings.preserveTransparency ? data[p + 3] : 255;
 
       if (!orderedMatrix) {
         diffuse(red, width, height, x, y, oldRed - color[0], kernel.points, kernel.divisor, settings.strength);
@@ -494,7 +737,7 @@ function applyDither(imageData, settings) {
   }
 
   const { width, height, data } = imageData;
-  const colors = palettes[settings.palette].map(hexToRgb);
+  const colors = settings.palette === "custom" ? settings.customColors : palettes[settings.palette].map(hexToRgb);
   const levels = colors.map(luminance);
   const values = new Float32Array(width * height);
   const output = new Uint8ClampedArray(data.length);
@@ -524,7 +767,7 @@ function applyDither(imageData, settings) {
       output[p] = color[0];
       output[p + 1] = color[1];
       output[p + 2] = color[2];
-      output[p + 3] = data[p + 3];
+      output[p + 3] = settings.preserveTransparency ? data[p + 3] : 255;
 
       if (!orderedMatrix) {
         const kernel = diffusionKernels[settings.algorithm];
@@ -541,16 +784,93 @@ function fitDimensions(width, height, maxDimension) {
   return { width: Math.max(1, Math.round(width * scale)), height: Math.max(1, Math.round(height * scale)) };
 }
 
-function renderToCanvas(target, maxDimension = 1400) {
+const outputPresets = {
+  square: { width: 1080, height: 1080, aspect: "1:1" },
+  portrait: { width: 1080, height: 1350, aspect: "4:5" },
+  story: { width: 1080, height: 1920, aspect: "9:16" },
+  hd: { width: 1920, height: 1080, aspect: "16:9" }
+};
+
+function parseAspect(aspect) {
+  if (aspect === "original") return null;
+  const [width, height] = aspect.split(":").map(Number);
+  return width / height;
+}
+
+function createWorkingSource(baseSource, rotation = state.rotation, cropAspect = state.cropAspect) {
+  const baseWidth = baseSource.naturalWidth || baseSource.width;
+  const baseHeight = baseSource.naturalHeight || baseSource.height;
+  const rotated = document.createElement("canvas");
+  const swapped = rotation % 180 !== 0;
+  rotated.width = swapped ? baseHeight : baseWidth;
+  rotated.height = swapped ? baseWidth : baseHeight;
+  const context = rotated.getContext("2d");
+  context.translate(rotated.width / 2, rotated.height / 2);
+  context.rotate((rotation * Math.PI) / 180);
+  context.drawImage(baseSource, -baseWidth / 2, -baseHeight / 2, baseWidth, baseHeight);
+
+  const targetAspect = parseAspect(cropAspect);
+  if (!targetAspect) return rotated;
+
+  let sourceWidth = rotated.width;
+  let sourceHeight = rotated.height;
+  const currentAspect = sourceWidth / sourceHeight;
+  if (currentAspect > targetAspect) sourceWidth = Math.round(sourceHeight * targetAspect);
+  else sourceHeight = Math.round(sourceWidth / targetAspect);
+
+  const cropped = document.createElement("canvas");
+  cropped.width = sourceWidth;
+  cropped.height = sourceHeight;
+  cropped.getContext("2d").drawImage(
+    rotated,
+    Math.round((rotated.width - sourceWidth) / 2),
+    Math.round((rotated.height - sourceHeight) / 2),
+    sourceWidth,
+    sourceHeight,
+    0,
+    0,
+    sourceWidth,
+    sourceHeight
+  );
+  return cropped;
+}
+
+function rebuildWorkingSource() {
+  if (!state.baseSource) return;
+  state.source = createWorkingSource(state.baseSource);
+  state.width = state.source.width;
+  state.height = state.source.height;
+  updateLoadedMetadata();
+  drawOriginal();
+  scheduleRender();
+}
+
+function getOutputDimensions(width = state.width, height = state.height) {
+  const preset = outputPresets[elements.outputSize.value];
+  return preset || fitDimensions(width, height, 4200);
+}
+
+function drawSource(context, source, width, height, settings) {
+  context.clearRect(0, 0, width, height);
+  if (!settings.preserveTransparency) {
+    context.fillStyle = settings.backgroundColor;
+    context.fillRect(0, 0, width, height);
+  }
+  context.drawImage(source, 0, 0, width, height);
+}
+
+function renderToCanvas(target, maxDimension = 1400, forcedDimensions = null, source = state.source) {
   const settings = getSettings();
-  const preview = fitDimensions(state.width, state.height, maxDimension);
+  const sourceWidth = source.width || source.naturalWidth;
+  const sourceHeight = source.height || source.naturalHeight;
+  const preview = forcedDimensions || fitDimensions(sourceWidth, sourceHeight, maxDimension);
   const sampleWidth = Math.max(1, Math.round(preview.width / settings.pixelSize));
   const sampleHeight = Math.max(1, Math.round(preview.height / settings.pixelSize));
   const sample = document.createElement("canvas");
   sample.width = sampleWidth;
   sample.height = sampleHeight;
   const sampleContext = sample.getContext("2d", { willReadFrequently: true });
-  sampleContext.drawImage(state.source, 0, 0, sampleWidth, sampleHeight);
+  drawSource(sampleContext, source, sampleWidth, sampleHeight, settings);
   const dithered = applyDither(sampleContext.getImageData(0, 0, sampleWidth, sampleHeight), settings);
   sampleContext.putImageData(dithered, 0, 0);
 
@@ -567,7 +887,7 @@ function drawOriginal() {
   const { width, height } = fitDimensions(state.width, state.height, 1400);
   elements.originalCanvas.width = width;
   elements.originalCanvas.height = height;
-  elements.originalCanvas.getContext("2d").drawImage(state.source, 0, 0, width, height);
+  drawSource(elements.originalCanvas.getContext("2d"), state.source, width, height, getSettings());
   elements.previewFrame.style.aspectRatio = `${width} / ${height}`;
   sizePreviewFrame();
   window.requestAnimationFrame(sizePreviewFrame);
@@ -576,7 +896,7 @@ function drawOriginal() {
 function sizePreviewFrame() {
   if (!state.source || elements.previewWrap.hidden) return;
   const availableWidth = elements.previewWrap.clientWidth;
-  const availableHeight = elements.previewWrap.clientHeight;
+  const availableHeight = Math.max(1, elements.previewWrap.clientHeight - 44);
   if (!availableWidth || !availableHeight) return;
 
   const ratio = state.width / state.height;
@@ -588,8 +908,13 @@ function sizePreviewFrame() {
     width = height * ratio;
   }
 
+  width *= state.zoom;
+  height *= state.zoom;
   elements.previewFrame.style.width = `${Math.floor(width)}px`;
   elements.previewFrame.style.height = `${Math.floor(height)}px`;
+  elements.previewWrap.classList.toggle("zoomed", state.zoom > 1);
+  elements.previewStack.style.maxWidth = state.zoom > 1 ? "none" : "100%";
+  elements.previewStack.style.maxHeight = state.zoom > 1 ? "none" : "100%";
 }
 
 function scheduleRender() {
@@ -616,14 +941,15 @@ function setLoadedUI() {
   elements.workspaceFooter.hidden = false;
   elements.newImageButton.disabled = false;
   controlIds.forEach((id) => { $(`#${id}`).disabled = false; });
+  updateBatchUI();
   updateLoadedMetadata();
 }
 
 function updateLoadedMetadata() {
   elements.fileName.textContent = state.fileName;
   elements.fileDetails.textContent = `${state.width} × ${state.height} · ${formatBytes(state.fileSize)}`;
-  const exportSize = fitDimensions(state.width, state.height, 4200);
-  elements.outputDetails.textContent = `PNG · ${exportSize.width} × ${exportSize.height} px`;
+  const exportSize = getOutputDimensions();
+  elements.outputDetails.textContent = `${elements.exportFormat.value.toUpperCase()} · ${exportSize.width} × ${exportSize.height} px`;
 }
 
 function showToast(message, type = "") {
@@ -633,7 +959,24 @@ function showToast(message, type = "") {
   showToast.timer = window.setTimeout(() => { elements.toast.className = "toast"; }, 2800);
 }
 
-async function loadFile(file) {
+async function decodeFile(file) {
+  const objectUrl = URL.createObjectURL(file);
+  const image = new Image();
+  image.decoding = "async";
+  image.src = objectUrl;
+  await image.decode();
+  URL.revokeObjectURL(objectUrl);
+  return image;
+}
+
+function resetTransformControls() {
+  state.rotation = 0;
+  state.cropAspect = "original";
+  elements.cropAspect.value = "original";
+  elements.outputSize.value = "original";
+}
+
+async function loadFile(file, { preserveTransforms = false } = {}) {
   if (!file || !file.type.startsWith("image/")) {
     showToast(t("invalidFile"), "error");
     return;
@@ -644,18 +987,17 @@ async function loadFile(file) {
   }
 
   try {
-    if (state.objectUrl) URL.revokeObjectURL(state.objectUrl);
-    state.objectUrl = URL.createObjectURL(file);
-    const image = new Image();
-    image.decoding = "async";
-    image.src = state.objectUrl;
-    await image.decode();
-    state.source = image;
+    const image = await decodeFile(file);
+    state.baseSource = image;
     state.isDemo = false;
     state.fileName = file.name;
     state.fileSize = file.size;
-    state.width = image.naturalWidth;
-    state.height = image.naturalHeight;
+    state.originalWidth = image.naturalWidth;
+    state.originalHeight = image.naturalHeight;
+    if (!preserveTransforms) resetTransformControls();
+    state.source = createWorkingSource(image);
+    state.width = state.source.width;
+    state.height = state.source.height;
     setLoadedUI();
     drawOriginal();
     scheduleRender();
@@ -711,12 +1053,16 @@ function createDemo() {
     context.fillRect(x, y, 1, 1);
   }
 
-  state.source = canvas;
+  state.baseSource = canvas;
+  resetTransformControls();
+  state.source = createWorkingSource(canvas);
   state.isDemo = true;
   state.fileName = t("demoFileName");
   state.fileSize = 0;
-  state.width = canvas.width;
-  state.height = canvas.height;
+  state.originalWidth = canvas.width;
+  state.originalHeight = canvas.height;
+  state.width = state.source.width;
+  state.height = state.source.height;
   setLoadedUI();
   drawOriginal();
   scheduleRender();
@@ -732,8 +1078,32 @@ function resetSettings() {
     updateRangeFill(input);
   });
   $("#invert").checked = defaults.invert;
+  elements.stylePreset.value = "custom";
+  updateCustomPaletteVisibility();
   scheduleRender();
   showToast(t("settingsReset"));
+}
+
+const stylePresets = {
+  newspaper: { algorithm: "bayer", palette: "mono", pixelSize: 2, contrast: 135, brightness: 5, strength: 120 },
+  gameboy: { algorithm: "atkinson", palette: "gameboy", pixelSize: 3, contrast: 120, brightness: 0, strength: 100 },
+  cyberpunk: { algorithm: "bayer8", palette: "vapor", pixelSize: 2, contrast: 130, brightness: 4, strength: 115 },
+  retro: { algorithm: "sierra", palette: "violet", pixelSize: 3, contrast: 115, brightness: -4, strength: 95 }
+};
+
+function applyStylePreset(name) {
+  const preset = stylePresets[name];
+  if (!preset) return;
+  $(`input[name='algorithm'][value='${preset.algorithm}']`).checked = true;
+  $(`input[name='palette'][value='${preset.palette}']`).checked = true;
+  Object.entries(rangeConfig).forEach(([id, config]) => {
+    const input = $(`#${id}`);
+    input.value = preset[id];
+    $(`#${id}Value`).textContent = `${preset[id]}${config.suffix}`;
+    updateRangeFill(input);
+  });
+  updateCustomPaletteVisibility();
+  scheduleRender();
 }
 
 function updateRangeFill(input) {
@@ -744,6 +1114,44 @@ function updateRangeFill(input) {
 function updateCompare(value) {
   elements.resultClip.style.clipPath = `inset(0 0 0 ${value}%)`;
   elements.compareLine.style.left = `${value}%`;
+  elements.compareRange.value = value;
+  elements.compareSlider.value = value;
+}
+
+function setMobileControlTab(group, { scroll = false } = {}) {
+  $$('[data-control-group]').forEach((section) => {
+    section.classList.toggle("mobile-active", section.dataset.controlGroup === group);
+  });
+  $$('[data-mobile-tab]').forEach((button) => {
+    const active = button.dataset.mobileTab === group;
+    button.classList.toggle("active", active);
+    button.setAttribute("aria-pressed", String(active));
+  });
+  if (scroll) elements.controlPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function updateDownloadLabel() {
+  const format = elements.exportFormat?.value === "webp" ? "WebP" : "PNG";
+  if (elements.downloadLabel) elements.downloadLabel.textContent = t("downloadFile", { format });
+  if (state.source) updateLoadedMetadata();
+}
+
+function getExportConfig() {
+  return elements.exportFormat.value === "webp"
+    ? { extension: "webp", mime: "image/webp", quality: 0.92, label: "WebP" }
+    : { extension: "png", mime: "image/png", quality: undefined, label: "PNG" };
+}
+
+function canvasToBlob(canvas, type, quality) {
+  return new Promise((resolve) => canvas.toBlob(resolve, type, quality));
+}
+
+function triggerDownload(blob, fileName) {
+  const link = document.createElement("a");
+  link.download = fileName;
+  link.href = URL.createObjectURL(blob);
+  link.click();
+  window.setTimeout(() => URL.revokeObjectURL(link.href), 1200);
 }
 
 async function downloadResult() {
@@ -751,56 +1159,119 @@ async function downloadResult() {
   elements.downloadButton.disabled = true;
   elements.downloadLabel.textContent = t("preparing");
   await new Promise((resolve) => window.setTimeout(resolve, 20));
+  const dimensions = getOutputDimensions();
   const exportCanvas = document.createElement("canvas");
-  const maxDimension = Math.min(4200, Math.max(state.width, state.height));
-  const output = renderToCanvas(exportCanvas, maxDimension);
-  exportCanvas.toBlob((blob) => {
-    if (!blob) {
-      elements.downloadLabel.textContent = t("download");
-      elements.downloadButton.disabled = false;
-      showToast(t("pngError"), "error");
-      return;
-    }
-    const baseName = state.fileName.replace(/\.[^.]+$/, "") || "imagen";
-    const fileName = `${baseName}-dither.png`;
-
-    if (typeof window.saveNativePng === "function") {
-      window.saveNativePng(blob, fileName, {
-        title: t("nativeShareTitle"),
-        dialogTitle: t("nativeShareDialog")
-      })
-        .then(() => showToast(t("nativeReady")))
-        .catch(() => showToast(t("nativeError"), "error"))
-        .finally(() => {
-          elements.downloadLabel.textContent = t("download");
-          elements.downloadButton.disabled = false;
-        });
-      return;
-    }
-
-    const link = document.createElement("a");
-    link.download = fileName;
-    link.href = URL.createObjectURL(blob);
-    link.click();
-    window.setTimeout(() => URL.revokeObjectURL(link.href), 1000);
-    elements.downloadLabel.textContent = t("download");
+  const output = renderToCanvas(exportCanvas, Math.max(dimensions.width, dimensions.height), dimensions);
+  const format = getExportConfig();
+  const blob = await canvasToBlob(exportCanvas, format.mime, format.quality);
+  if (!blob) {
+    updateDownloadLabel();
     elements.downloadButton.disabled = false;
-    showToast(t("pngReady", { width: output.width, height: output.height }));
-  }, "image/png");
+    showToast(t("exportError"), "error");
+    return;
+  }
+  const baseName = state.fileName.replace(/\.[^.]+$/, "") || "image";
+  const fileName = `${baseName}-dither.${format.extension}`;
+  if (typeof window.saveNativePng === "function") {
+    try {
+      await window.saveNativePng(blob, fileName, { title: t("nativeShareTitle"), dialogTitle: t("nativeShareDialog") });
+    } catch {
+      showToast(t("nativeError"), "error");
+    }
+  } else {
+    triggerDownload(blob, fileName);
+  }
+  updateDownloadLabel();
+  elements.downloadButton.disabled = false;
+  showToast(t("exportReady", { format: format.label, width: output.width, height: output.height }));
+}
+
+function updateBatchUI() {
+  const multiple = state.batchFiles.length > 1;
+  elements.batchControls.hidden = !multiple;
+  elements.downloadBatchButton.hidden = !multiple;
+  elements.batchPosition.textContent = `${state.batchIndex + 1} / ${state.batchFiles.length || 1}`;
+  elements.previousImageButton.disabled = state.batchIndex <= 0;
+  elements.nextImageButton.disabled = state.batchIndex >= state.batchFiles.length - 1;
+}
+
+async function handleFileSelection(fileList) {
+  const files = [...fileList].filter((file) => file.type.startsWith("image/") && file.size <= 30 * 1024 * 1024);
+  if (!files.length) {
+    showToast(t("invalidFile"), "error");
+    return;
+  }
+  state.batchFiles = files;
+  state.batchIndex = 0;
+  await loadFile(files[0]);
+  updateBatchUI();
+  if (files.length > 1) showToast(t("batchReady", { count: files.length }));
+}
+
+async function navigateBatch(direction) {
+  const nextIndex = state.batchIndex + direction;
+  if (nextIndex < 0 || nextIndex >= state.batchFiles.length) return;
+  state.batchIndex = nextIndex;
+  await loadFile(state.batchFiles[nextIndex], { preserveTransforms: true });
+  updateBatchUI();
+}
+
+async function downloadBatch() {
+  if (state.batchFiles.length < 2) return;
+  elements.downloadBatchButton.disabled = true;
+  showToast(t("batchDownloadStarted", { count: state.batchFiles.length }));
+  const format = getExportConfig();
+  for (const file of state.batchFiles) {
+    const image = await decodeFile(file);
+    const source = createWorkingSource(image);
+    const dimensions = getOutputDimensions(source.width, source.height);
+    const canvas = document.createElement("canvas");
+    renderToCanvas(canvas, Math.max(dimensions.width, dimensions.height), dimensions, source);
+    const blob = await canvasToBlob(canvas, format.mime, format.quality);
+    if (blob) triggerDownload(blob, `${file.name.replace(/\.[^.]+$/, "")}-dither.${format.extension}`);
+    await new Promise((resolve) => window.setTimeout(resolve, 180));
+  }
+  elements.downloadBatchButton.disabled = false;
 }
 
 elements.uploadButton.addEventListener("click", () => elements.fileInput.click());
+elements.cameraButton.addEventListener("click", () => elements.cameraInput.click());
 elements.newImageButton.addEventListener("click", () => elements.fileInput.click());
-elements.fileInput.addEventListener("change", (event) => loadFile(event.target.files[0]));
-elements.demoButton.addEventListener("click", createDemo);
+elements.fileInput.addEventListener("change", (event) => handleFileSelection(event.target.files));
+elements.cameraInput.addEventListener("change", async (event) => {
+  state.batchFiles = [];
+  state.batchIndex = 0;
+  if (event.target.files[0]) await loadFile(event.target.files[0]);
+});
+elements.demoButton.addEventListener("click", () => {
+  state.batchFiles = [];
+  state.batchIndex = 0;
+  createDemo();
+  updateBatchUI();
+});
 elements.resetButton.addEventListener("click", resetSettings);
 elements.downloadButton.addEventListener("click", downloadResult);
+elements.downloadBatchButton.addEventListener("click", downloadBatch);
+elements.previousImageButton.addEventListener("click", () => navigateBatch(-1));
+elements.nextImageButton.addEventListener("click", () => navigateBatch(1));
+elements.mobileControlsButton.addEventListener("click", () => setMobileControlTab("style", { scroll: true }));
+
+$$('[data-mobile-tab]').forEach((button) => {
+  button.addEventListener("click", () => {
+    const tab = button.dataset.mobileTab;
+    if (tab === "preview") {
+      elements.workspace.scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
+    setMobileControlTab(tab);
+  });
+});
 
 $$('[data-language]').forEach((button) => {
   button.addEventListener("click", () => setLanguage(button.dataset.language));
 });
 
-elements.compareRange.addEventListener("input", (event) => updateCompare(event.target.value));
+[elements.compareRange, elements.compareSlider].forEach((input) => input.addEventListener("input", (event) => updateCompare(event.target.value)));
 
 $$('[data-view]').forEach((button) => {
   button.addEventListener("click", () => {
@@ -808,10 +1279,15 @@ $$('[data-view]').forEach((button) => {
     button.classList.add("active");
     elements.previewFrame.classList.remove("view-original", "view-result");
     if (button.dataset.view !== "compare") elements.previewFrame.classList.add(`view-${button.dataset.view}`);
+    elements.compareControl.hidden = button.dataset.view !== "compare";
   });
 });
 
-$$('input[name="algorithm"], input[name="palette"], #invert').forEach((input) => input.addEventListener("change", scheduleRender));
+$$('input[name="algorithm"], input[name="palette"], #invert').forEach((input) => input.addEventListener("change", () => {
+  elements.stylePreset.value = "custom";
+  updateCustomPaletteVisibility();
+  scheduleRender();
+}));
 
 Object.entries(rangeConfig).forEach(([id, config]) => {
   const input = $(`#${id}`);
@@ -819,8 +1295,69 @@ Object.entries(rangeConfig).forEach(([id, config]) => {
   input.addEventListener("input", () => {
     $(`#${id}Value`).textContent = `${input.value}${config.suffix}`;
     updateRangeFill(input);
+    elements.stylePreset.value = "custom";
     scheduleRender();
   });
+});
+
+elements.stylePreset.addEventListener("change", () => applyStylePreset(elements.stylePreset.value));
+elements.cropAspect.addEventListener("change", () => {
+  state.cropAspect = elements.cropAspect.value;
+  elements.outputSize.value = "original";
+  rebuildWorkingSource();
+});
+elements.rotateLeftButton.addEventListener("click", () => {
+  state.rotation = (state.rotation + 270) % 360;
+  rebuildWorkingSource();
+});
+elements.rotateRightButton.addEventListener("click", () => {
+  state.rotation = (state.rotation + 90) % 360;
+  rebuildWorkingSource();
+});
+elements.preserveTransparency.addEventListener("change", () => {
+  elements.backgroundColor.disabled = elements.preserveTransparency.checked;
+  drawOriginal();
+  scheduleRender();
+});
+elements.backgroundColor.addEventListener("input", () => {
+  drawOriginal();
+  scheduleRender();
+});
+elements.zoom.addEventListener("input", () => {
+  state.zoom = Number(elements.zoom.value) / 100;
+  elements.zoomValue.textContent = `${elements.zoom.value}%`;
+  updateRangeFill(elements.zoom);
+  sizePreviewFrame();
+});
+elements.outputSize.addEventListener("change", () => {
+  const preset = outputPresets[elements.outputSize.value];
+  if (preset) {
+    state.cropAspect = preset.aspect;
+    elements.cropAspect.value = preset.aspect;
+    rebuildWorkingSource();
+  } else updateLoadedMetadata();
+});
+elements.exportFormat.addEventListener("change", updateDownloadLabel);
+
+elements.addColorButton.addEventListener("click", () => {
+  if (state.customColors.length >= 8) return;
+  state.customColors.push(state.customColors[state.customColors.length - 1]);
+  persistCustomPalettes();
+  renderCustomColors();
+  scheduleRender();
+});
+elements.removeColorButton.addEventListener("click", () => {
+  if (state.customColors.length <= 2) return;
+  state.customColors.pop();
+  persistCustomPalettes();
+  renderCustomColors();
+  scheduleRender();
+});
+elements.savePaletteButton.addEventListener("click", saveCustomPalette);
+elements.deletePaletteButton.addEventListener("click", deleteSavedPalette);
+elements.savedPaletteSelect.addEventListener("change", () => {
+  const palette = state.savedPalettes.find((item) => item.id === elements.savedPaletteSelect.value);
+  if (palette) selectCustomPalette(palette.colors);
 });
 
 ["dragenter", "dragover"].forEach((eventName) => {
@@ -838,8 +1375,7 @@ Object.entries(rangeConfig).forEach(([id, config]) => {
 });
 
 window.addEventListener("drop", (event) => {
-  const file = event.dataTransfer.files[0];
-  if (file) loadFile(file);
+  if (event.dataTransfer.files.length) handleFileSelection(event.dataTransfer.files);
 });
 
 window.addEventListener("keydown", (event) => {
@@ -850,5 +1386,9 @@ window.addEventListener("keydown", (event) => {
 });
 
 new ResizeObserver(sizePreviewFrame).observe(elements.previewWrap);
+renderCustomColors();
+updateRangeFill(elements.zoom);
+elements.backgroundColor.disabled = elements.preserveTransparency.checked;
+setMobileControlTab("style");
 updateCompare(50);
 applyLanguage();
