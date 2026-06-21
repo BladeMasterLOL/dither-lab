@@ -1264,6 +1264,9 @@ $$('[data-mobile-tab]').forEach((button) => {
       return;
     }
     setMobileControlTab(tab);
+    if (window.matchMedia("(min-width: 881px)").matches) {
+      $(`[data-control-group='${tab}']`)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   });
 });
 

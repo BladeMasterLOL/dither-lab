@@ -6,11 +6,11 @@
     <meta name="theme-color" content="#11110f" />
     <meta name="description" content="Convierte tus imágenes en arte con dithering directamente en tu navegador." />
     <title>Dither Lab — Dithering instantáneo</title>
-    <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
+    <link rel="icon" href="assets/icon.svg?v=1.4.0" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=1.4.0" />
   </head>
   <body>
     <header class="topbar">
@@ -37,7 +37,7 @@
           <p data-i18n="subheadline">Elige cómo quieres romper los píxeles.</p>
         </div>
 
-        <nav class="mobile-control-tabs" aria-label="Navegación del editor" data-i18n-aria-label="mobileEditorNav">
+        <nav class="editor-control-tabs" aria-label="Navegación del editor" data-i18n-aria-label="mobileEditorNav">
           <button type="button" data-mobile-tab="preview" data-i18n="mobilePreview">Vista</button>
           <button class="active" type="button" data-mobile-tab="style" data-i18n="mobileStyle">Estilo</button>
           <button type="button" data-mobile-tab="adjust" data-i18n="mobileAdjust">Ajustes</button>
@@ -318,6 +318,6 @@
     <input id="fileInput" type="file" accept="image/jpeg,image/png,image/webp" multiple hidden />
     <input id="cameraInput" type="file" accept="image/*" capture="environment" hidden />
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    <script src="app.js"></script>
+    <script src="app.js?v=1.4.0"></script>
   </body>
 </html>
