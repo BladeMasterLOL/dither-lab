@@ -959,14 +959,34 @@ function showToast(message, type = "") {
   showToast.timer = window.setTimeout(() => { elements.toast.className = "toast"; }, 2800);
 }
 
+function isSupportedImageFile(file) {
+  if (!file) return false;
+  const mimeType = (file.type || "").toLowerCase();
+  return ["image/jpeg", "image/jpg", "image/png", "image/webp"].includes(mimeType)
+    || /\.(?:jpe?g|png|webp)$/i.test(file.name || "");
+}
+
 async function decodeFile(file) {
+  if ("createImageBitmap" in window) {
+    try {
+      return await createImageBitmap(file, { imageOrientation: "from-image" });
+    } catch {
+      // The Image element fallback handles JPEG variants unsupported by ImageBitmap.
+    }
+  }
+
   const objectUrl = URL.createObjectURL(file);
-  const image = new Image();
-  image.decoding = "async";
-  image.src = objectUrl;
-  await image.decode();
-  URL.revokeObjectURL(objectUrl);
-  return image;
+  try {
+    return await new Promise((resolve, reject) => {
+      const image = new Image();
+      image.decoding = "async";
+      image.onload = () => resolve(image);
+      image.onerror = () => reject(new Error("Image decode failed"));
+      image.src = objectUrl;
+    });
+  } finally {
+    URL.revokeObjectURL(objectUrl);
+  }
 }
 
 function resetTransformControls() {
@@ -977,7 +997,7 @@ function resetTransformControls() {
 }
 
 async function loadFile(file, { preserveTransforms = false } = {}) {
-  if (!file || !file.type.startsWith("image/")) {
+  if (!isSupportedImageFile(file)) {
     showToast(t("invalidFile"), "error");
     return;
   }
@@ -992,8 +1012,8 @@ async function loadFile(file, { preserveTransforms = false } = {}) {
     state.isDemo = false;
     state.fileName = file.name;
     state.fileSize = file.size;
-    state.originalWidth = image.naturalWidth;
-    state.originalHeight = image.naturalHeight;
+    state.originalWidth = image.naturalWidth || image.width;
+    state.originalHeight = image.naturalHeight || image.height;
     if (!preserveTransforms) resetTransformControls();
     state.source = createWorkingSource(image);
     state.width = state.source.width;
@@ -1196,9 +1216,15 @@ function updateBatchUI() {
 }
 
 async function handleFileSelection(fileList) {
-  const files = [...fileList].filter((file) => file.type.startsWith("image/") && file.size <= 30 * 1024 * 1024);
-  if (!files.length) {
+  const selectedFiles = [...fileList];
+  const supportedFiles = selectedFiles.filter(isSupportedImageFile);
+  if (!supportedFiles.length) {
     showToast(t("invalidFile"), "error");
+    return;
+  }
+  const files = supportedFiles.filter((file) => file.size <= 30 * 1024 * 1024);
+  if (!files.length) {
+    showToast(t("tooLarge"), "error");
     return;
   }
   state.batchFiles = files;
@@ -1237,11 +1263,17 @@ async function downloadBatch() {
 elements.uploadButton.addEventListener("click", () => elements.fileInput.click());
 elements.cameraButton.addEventListener("click", () => elements.cameraInput.click());
 elements.newImageButton.addEventListener("click", () => elements.fileInput.click());
-elements.fileInput.addEventListener("change", (event) => handleFileSelection(event.target.files));
+elements.fileInput.addEventListener("change", async (event) => {
+  const files = [...event.target.files];
+  event.target.value = "";
+  await handleFileSelection(files);
+});
 elements.cameraInput.addEventListener("change", async (event) => {
+  const file = event.target.files[0];
+  event.target.value = "";
   state.batchFiles = [];
   state.batchIndex = 0;
-  if (event.target.files[0]) await loadFile(event.target.files[0]);
+  if (file) await loadFile(file);
 });
 elements.demoButton.addEventListener("click", () => {
   state.batchFiles = [];
